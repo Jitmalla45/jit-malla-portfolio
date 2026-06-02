@@ -85,7 +85,7 @@ export const memories = {
   "bsc51.jpg",
   "bsc52.jpg",
   "bsc53.jpg",
-  "bsc54.jpg",
+  "bsc54.JPG",
   "bsc55.JPG",
   "bsc56.JPG",
   "bsc57.JPG",
