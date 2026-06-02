@@ -1,1 +1,42 @@
-node_modules
+# Dependencies
+node_modules/
+
+# Production builds
+dist/
+build/
+
+# Build artifacts and caches
+.vite/
+.cache/
+.parcel-cache/
+coverage/
+*.tsbuildinfo
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment files
+.env
+.env.*
+!.env.example
+!.env.template
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*.swn
+*.sublime-workspace
+
+# Local tool output
+.eslintcache
