@@ -10,9 +10,8 @@ export default function Projects() {
 
   return (
     <section id="projects" className="section-shell">
-      <SectionHeader eyebrow="Projects" title="Bento research systems">
-        Project cards behave like active experiment tiles, with details ready to
-        expand as the research portfolio grows.
+      <SectionHeader eyebrow="Projects" title="Research Projects">
+        Selected works, experiments, and research contributions.
       </SectionHeader>
       <div className="mx-auto grid max-w-6xl auto-rows-[280px] gap-5 lg:grid-cols-3">
         {projects.map((project) => (
