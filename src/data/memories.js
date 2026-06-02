@@ -28,7 +28,6 @@ export const memories = {
   "school9.jpg",
   "school10.jpg",
   "school11.jpg",
-  "school12.jpg",
   "school13.jpg",
   "school14.jpg",
   ],
