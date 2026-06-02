@@ -4,23 +4,17 @@ import {
   BrainCircuit,
   Facebook,
   Github,
-  FlaskConical,
   Instagram,
   Linkedin,
   Mail,
-  Terminal,
-  Cpu,
   Braces,
   Binary,
-  CodeXml, 
   Images,
-  Wallpaper,
-  Aperture,
-  GalleryVerticalEnd,
   GraduationCap,
   ShieldCheck,
 } from "lucide-react";
 import React, { useCallback } from "react";
+import { Link } from "react-router-dom";
 import LabScene from "../components/LabScene.jsx";
 import { githubStats, heroDashboard, profile } from "../data/portfolio";
 
@@ -155,17 +149,15 @@ export default function Hero() {
               <Binary size={18} />
               LeetCode
             </a>
-            <a
+            <Link
               className="social-button magnetic-target"
-              href={profile.leetcode}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Open LeetCode profile"
+              to="/memories"
+              aria-label="Open personal memories page"
               data-magnetic
             >
               <Images size={18} />
               Personal Memories
-            </a>
+            </Link>
           </motion.div>
         </motion.div>
         <motion.div

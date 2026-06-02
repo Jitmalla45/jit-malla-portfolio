@@ -1,10 +1,12 @@
 import { AnimatePresence } from "framer-motion";
 import React, { useEffect } from "react";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import CursorAura from "./components/CursorAura.jsx";
 import Navigation from "./components/Navigation.jsx";
+import Memories from "./pages/Memories.jsx";
 import Hero from "./sections/Hero.jsx";
 import About from "./sections/About.jsx";
 import ResearchInterests from "./sections/ResearchInterests.jsx";
@@ -15,6 +17,34 @@ import Contact from "./sections/Contact.jsx";
 import Footer from "./sections/Footer.jsx";
 
 gsap.registerPlugin(ScrollTrigger);
+
+function PortfolioHome() {
+  return (
+    <>
+      <Navigation />
+      <main>
+        <Hero />
+        <About />
+        <ResearchInterests />
+        <Projects />
+        <Achievements />
+        <Resume />
+        <Contact />
+      </main>
+      <Footer />
+    </>
+  );
+}
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0 });
+  }, [pathname]);
+
+  return null;
+}
 
 export default function App() {
   useEffect(() => {
@@ -73,18 +103,12 @@ export default function App() {
   return (
     <AnimatePresence>
       <div className="min-h-screen overflow-hidden bg-void text-ink selection:bg-labCyan selection:text-void">
+        <ScrollToTop />
         <CursorAura />
-        <Navigation />
-        <main>
-          <Hero />
-          <About />
-          <ResearchInterests />
-          <Projects />
-          <Achievements />
-          <Resume />
-          <Contact />
-        </main>
-        <Footer />
+        <Routes>
+          <Route path="/" element={<PortfolioHome />} />
+          <Route path="/memories" element={<Memories />} />
+        </Routes>
       </div>
     </AnimatePresence>
   );
