@@ -164,7 +164,7 @@ export default function Hero() {
               data-magnetic
             >
               <Images size={18} />
-              Memories
+              Personal Memories
             </a>
           </motion.div>
         </motion.div>
