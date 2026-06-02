@@ -12,7 +12,11 @@ import {
   Cpu,
   Braces,
   Binary,
-  CodeXml,
+  CodeXml, 
+  Images,
+  Wallpaper,
+  Aperture,
+  GalleryVerticalEnd,
   GraduationCap,
   ShieldCheck,
 } from "lucide-react";
@@ -150,6 +154,17 @@ export default function Hero() {
             >
               <Binary size={18} />
               LeetCode
+            </a>
+            <a
+              className="social-button magnetic-target"
+              href={profile.leetcode}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Open LeetCode profile"
+              data-magnetic
+            >
+              <Images size={18} />
+              Memories
             </a>
           </motion.div>
         </motion.div>
