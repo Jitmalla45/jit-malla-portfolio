@@ -29,7 +29,7 @@ export default function Memories() {
           </div>
         </div>
 
-        <section className="relative flex min-h-[calc(100vh-5rem)] items-center py-20">
+        <section className="relative flex items-center py-20">
           <motion.div
             initial={{ opacity: 0, y: 34, filter: "blur(14px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
