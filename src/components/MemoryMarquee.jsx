@@ -52,7 +52,7 @@ export default function MemoryMarquee({ items = [], reverse = false }) {
     controls.start({
       x: reverse ? ["-50%", "0%"] : ["0%", "-50%"],
       transition: {
-        duration: hasImages ? 55 : 40,
+        duration: hasImages ? 100 : 75,
         ease: "linear",
         repeat: Infinity,
       },
@@ -69,7 +69,7 @@ export default function MemoryMarquee({ items = [], reverse = false }) {
     controls.start({
       x: reverse ? ["-50%", "0%"] : ["0%", "-50%"],
       transition: {
-        duration: hasImages ? 55 : 40,
+        duration: hasImages ? 100 : 75,
         ease: "linear",
         repeat: Infinity,
       },
