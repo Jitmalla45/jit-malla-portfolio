@@ -3,7 +3,7 @@ export const profile = {
   title: "Incoming PhD Scholar, CSE, IIT Kharagpur",
   linkedin: "https://www.linkedin.com/in/jitmalla",
   github: "https://github.com/Jitmalla45",
-  geeksforgeeks: "https://www.geeksforgeeks.org/profile/jitmalla",
+  geeksforgeeks: "https://www.geeksforgeeks.org/profile/jitmalla?tab=activity",
   leetcode: "https://leetcode.com/u/Jitmalla45/",
   instagram: "https://www.instagram.com/jit_malla?igsh=ZnRwNWY2eXo0bWlm",
   facebook: "https://www.facebook.com/share/1JsCN4REBa/",
