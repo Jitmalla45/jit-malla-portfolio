@@ -8,6 +8,7 @@ export const profile = {
   instagram: "https://www.instagram.com/jit_malla?igsh=ZnRwNWY2eXo0bWlm",
   facebook: "https://www.facebook.com/share/1JsCN4REBa/",
   profileImage: "/images/profile.jpg",
+  youtubemusic: "https://music.youtube.com/playlist?list=PLSWAPm9LT5C4KeAOteLK-jhnb0UTpsAET&si=NBTZbUw2n218G9ER",
   cvPath: "/cv/Jit_Malla_CV.pdf",
 };
 

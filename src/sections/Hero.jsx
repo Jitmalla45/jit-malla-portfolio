@@ -11,6 +11,10 @@ import {
   Binary,
   Images,
   GraduationCap,
+  SquarePlay,
+  Music4,
+  DiscAlbum,
+  ListMusic,
   ShieldCheck,
 } from "lucide-react";
 import React, { useCallback } from "react";
@@ -158,6 +162,17 @@ export default function Hero() {
               <Images size={18} />
               Personal Memories
             </Link>
+            <a
+              className="social-button magnetic-target"
+              href={profile.youtubemusic}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Open LeetCode profile"
+              data-magnetic
+            >
+              <Music4 size={18} />
+              Playlist 🎧
+            </a>
           </motion.div>
         </motion.div>
         <motion.div
