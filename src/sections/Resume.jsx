@@ -37,12 +37,12 @@ export default function Resume() {
           </div>
           <div className="grid gap-4 p-8 sm:grid-cols-2">
             {[
-              "AI/ML Researcher",
-              "Machine Learning",
-              "Deep Learning",
-              "Computer Vision",
-              "Graph Neural Networks",
-              "AI Research",
+              "Neuro-symbolic architectures",
+              "Multimodal policy alignment",
+              "Logic-guided trustworthy AI",
+              "Trust and Transparency in AI",
+              "T2AIL member",
+              "IIT Kharagpur CSE",
             ].map((item) => (
               <div key={item} className="rounded-lg border border-white/10 bg-white/[0.045] p-5">
                 <GraduationCap className="mb-5 text-labMint" size={22} />

@@ -7,7 +7,7 @@ export default function Footer() {
     <footer className="border-t border-white/10 bg-void px-4 py-8">
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 text-center sm:flex-row">
       <p className="font-mono text-xs uppercase tracking-[0.25em] text-slate-400">
-        {profile.name} | AI/ML Research Enthusiast
+        {profile.name} | {profile.affiliation}
       </p>
         <div className="flex items-center gap-3">
           <a

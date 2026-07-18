@@ -19,9 +19,14 @@ import { Link } from "react-router-dom";
 import LabScene from "../components/LabScene.jsx";
 import { githubStats, heroDashboard, profile } from "../data/portfolio";
 
-const words = ["Machine Learning", "Deep Learning", "Computer Vision", "Graph Neural Networks"];
+const words = [
+  "Neuro-symbolic architectures",
+  "Multimodal policy alignment",
+  "Logic-guided trustworthy AI",
+  "Trust and transparency in AI",
+];
 
-const widgetIcons = [ShieldCheck, GraduationCap];
+const widgetIcons = [ShieldCheck, GraduationCap, BrainCircuit, ShieldCheck];
 
 export default function Hero() {
   const handlePointerMove = useCallback((event) => {
@@ -79,7 +84,7 @@ export default function Hero() {
           >
             <div className="type-stack">
               {words.map((word) => (
-                <div key={word}>AI/ML Researcher in {word}</div>
+                <div key={word}>{word}</div>
               ))}
             </div>
           </motion.div>
@@ -89,8 +94,8 @@ export default function Hero() {
             transition={{ delay: 1, duration: 0.75 }}
             className="mt-8 max-w-2xl text-lg leading-8 text-slate-300 md:text-xl"
           >
-            Building intelligent systems at the edge of perception, reasoning,
-            and graph-structured learning.
+            Exploring neuro-symbolic architectures for multimodal policy
+            alignment, with logic-centered trust and transparency in AI.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 22 }}
