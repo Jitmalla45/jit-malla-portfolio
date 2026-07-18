@@ -11,10 +11,7 @@ import {
   Binary,
   Images,
   GraduationCap,
-  SquarePlay,
   Music4,
-  DiscAlbum,
-  ListMusic,
   ShieldCheck,
 } from "lucide-react";
 import React, { useCallback } from "react";

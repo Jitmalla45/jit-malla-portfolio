@@ -13,7 +13,16 @@ export default function MemoryMarquee({ items = [], reverse = false }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const hasImages = items.length > 0;
-  const displayItems = hasImages ? items : placeholderItems;
+  const displayItems = useMemo(
+    () =>
+      hasImages
+        ? items.slice(0, Math.min(items.length, 12)).map((item, index) => ({
+            ...item,
+            originalIndex: index,
+          }))
+        : placeholderItems,
+    [hasImages, items],
+  );
 
   const marqueeItems = useMemo(
     () => [...displayItems, ...displayItems],
@@ -23,10 +32,10 @@ export default function MemoryMarquee({ items = [], reverse = false }) {
   const openLightbox = useCallback(
     (index) => {
       if (!hasImages) return;
-      setActiveIndex(index % items.length);
+      setActiveIndex(displayItems[index % displayItems.length].originalIndex || 0);
       setIsLightboxOpen(true);
     },
-    [hasImages, items.length],
+    [displayItems, hasImages],
   );
 
   const closeLightbox = useCallback(() => {
@@ -109,6 +118,7 @@ export default function MemoryMarquee({ items = [], reverse = false }) {
                 src={item.src}
                 alt={item.alt || "Personal memory"}
                 loading="lazy"
+                decoding="async"
                 className="h-full w-full object-cover"
               />
             ) : (

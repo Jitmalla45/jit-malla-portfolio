@@ -59,8 +59,9 @@ function NeuralCore() {
   const pointsRef = useRef(null);
 
   const particles = useMemo(() => {
-    const positions = new Float32Array(520 * 3);
-    for (let i = 0; i < 520; i += 1) {
+    const particleCount = 260;
+    const positions = new Float32Array(particleCount * 3);
+    for (let i = 0; i < particleCount; i += 1) {
       const radius = 1.8 + Math.random() * 3.4;
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.acos(2 * Math.random() - 1);
@@ -149,7 +150,9 @@ export default function LabScene() {
   const [canRenderWebGL, setCanRenderWebGL] = useState(false);
 
   useEffect(() => {
-    setCanRenderWebGL(hasWebGLSupport());
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const hasEnoughViewport = window.matchMedia("(min-width: 768px)").matches;
+    setCanRenderWebGL(hasEnoughViewport && !prefersReducedMotion && hasWebGLSupport());
   }, []);
 
   if (!canRenderWebGL) {
@@ -160,8 +163,8 @@ export default function LabScene() {
     <LabSceneBoundary>
       <Canvas
         camera={{ position: [0, 0, 7.5], fov: 58 }}
-        dpr={[1, 1.75]}
-        gl={{ antialias: true, alpha: true }}
+        dpr={[1, 1.25]}
+        gl={{ antialias: false, alpha: true, powerPreference: "high-performance" }}
       >
         <ambientLight intensity={0.65} />
         <pointLight position={[4, 4, 4]} color="#35f3ff" intensity={1.9} />

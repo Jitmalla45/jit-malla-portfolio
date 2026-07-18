@@ -1,6 +1,6 @@
 export const profile = {
   name: "Jit Malla",
-  title: "Incoming PhD Scholar, CSE, IIT Kharagpur",
+  title: "PhD Research Scholar, CSE, IIT Kharagpur",
   linkedin: "https://www.linkedin.com/in/jitmalla",
   github: "https://github.com/Jitmalla45",
   geeksforgeeks: "https://www.geeksforgeeks.org/profile/jitmalla?tab=activity",
@@ -17,7 +17,10 @@ export const heroDashboard = [
     value: "GATE 2026 Qualified",
   },
   {
-    value: "MS-PhD in Computer Science, IACS",
+    value: "PhD Research Scholar, IIT Kharagpur CSE",
+  },
+  {
+    value: "Broad Area of Research: Neuro-symbolic architectures for multimodal policy alignment",
   },
 ];
 
@@ -77,8 +80,8 @@ export const researchInterests = [
 export const journey = [
   {
     year: "Now",
-    title: "Incoming PhD Scholar, CSE, IIT Kharagpur",
-    body: "Entering a research-intensive chapter focused on AI systems that can perceive, reason, and generalize.",
+    title: "PhD Research Scholar, CSE, IIT Kharagpur",
+    body: "Pursuing doctoral research in neuro-symbolic architectures for multimodal policy alignment, with a focus on AI systems that can perceive, reason, and align with complex policy constraints.",
   },
   {
     year: "2024–2026",
@@ -137,11 +140,11 @@ export const projects = [
 
 export const achievements = [
   {
-    title: "Selected for PhD in CSE at IIT Kharagpur",
+    title: "Joined as PhD Research Scholar in CSE at IIT Kharagpur",
     detail:
-      "A defining research milestone and the center of the portfolio narrative.",
+      "Currently pursuing doctoral research with a broad focus on neuro-symbolic architectures for multimodal policy alignment.",
     pulse: true,
-    badge: "PhD Selection",
+    badge: "PhD Research",
   },
   {
     title: "Qualified GATE 2026 (Computer Science & Information Technology)",

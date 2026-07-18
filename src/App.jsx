@@ -48,28 +48,35 @@ function ScrollToTop() {
 
 export default function App() {
   useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.25,
-      smoothWheel: true,
-      wheelMultiplier: 0.85,
-    });
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const hasFinePointer = window.matchMedia("(pointer: fine)").matches;
+    const shouldUseSmoothScroll = hasFinePointer && !prefersReducedMotion;
+    let lenis;
+    let raf;
 
-    const raf = (time) => lenis.raf(time * 1000);
+    if (shouldUseSmoothScroll) {
+      lenis = new Lenis({
+        duration: 0.95,
+        smoothWheel: true,
+        wheelMultiplier: 0.9,
+      });
 
-    lenis.on("scroll", ScrollTrigger.update);
-    gsap.ticker.add(raf);
-    gsap.ticker.lagSmoothing(0);
+      raf = (time) => lenis.raf(time * 1000);
+
+      lenis.on("scroll", ScrollTrigger.update);
+      gsap.ticker.add(raf);
+      gsap.ticker.lagSmoothing(500, 33);
+    }
 
     const ctx = gsap.context(() => {
       gsap.utils.toArray("[data-reveal]").forEach((element) => {
         gsap.fromTo(
           element,
-          { autoAlpha: 0, y: 72, filter: "blur(18px)" },
+          { autoAlpha: 0, y: 42 },
           {
             autoAlpha: 1,
             y: 0,
-            filter: "blur(0px)",
-            duration: 1.15,
+            duration: 0.8,
             ease: "power3.out",
             scrollTrigger: {
               trigger: element,
@@ -95,8 +102,12 @@ export default function App() {
 
     return () => {
       ctx.revert();
-      lenis.destroy();
-      gsap.ticker.remove(raf);
+      if (lenis) {
+        lenis.destroy();
+      }
+      if (raf) {
+        gsap.ticker.remove(raf);
+      }
     };
   }, []);
 

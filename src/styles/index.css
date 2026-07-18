@@ -425,6 +425,18 @@ body::before {
   mix-blend-mode: screen;
 }
 
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .lab-dashboard,
+  .glass-panel,
+  .memory-section,
+  .memory-card,
+  .image-lightbox-frame,
+  .image-lightbox-button,
+  .image-lightbox-nav {
+    background: rgba(8, 13, 28, 0.88);
+  }
+}
+
 .neural-grid {
   background-image:
     radial-gradient(circle at center, rgba(53, 243, 255, 0.35) 1px, transparent 1.5px),
@@ -706,9 +718,35 @@ body::before {
   }
 }
 
+@media (max-width: 767px) {
+  .hero-spotlight,
+  body::before {
+    display: none;
+  }
+
+  .lab-dashboard,
+  .glass-panel,
+  .memory-section,
+  .memory-card,
+  .image-lightbox-frame,
+  .image-lightbox-button,
+  .image-lightbox-nav {
+    backdrop-filter: none;
+  }
+
+  .profile-frame,
+  .memory-card,
+  .lab-widget,
+  .social-chip,
+  .github-preview {
+    transition-duration: 150ms;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .float-profile,
-  .type-stack {
+  .type-stack,
+  .memory-track {
     animation: none;
   }
 

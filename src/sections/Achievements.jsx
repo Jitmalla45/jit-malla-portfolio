@@ -8,7 +8,7 @@ export default function Achievements() {
   return (
     <section id="achievements" className="section-shell">
       <SectionHeader eyebrow="Achievements" title="Milestones with momentum">
-        A concise timeline centered on the IIT Kharagpur PhD selection and the
+        A concise timeline centered on the IIT Kharagpur PhD research journey and the
         research path that leads into it.
       </SectionHeader>
       <div className="mx-auto max-w-4xl">
