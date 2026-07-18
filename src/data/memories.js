@@ -251,7 +251,20 @@ export const memories = {
   "msc94.jpeg",
   "msc95.jpeg",
   ],
-  phd: [],
+  phd: ["phd1.jpg",
+"phd2.jpg",
+"phd3.jpg",
+"phd4.jpg",
+"phd5.jpg",
+"phd6.jpg",
+"phd7.jpg",
+"phd8.jpg",
+"phd9.jpg",
+"phd10.jpg",
+"phd11.jpg",
+"phd12.jpg",
+"phd13.jpg",
+"phd14.jpg",],
 };
 
 export const memorySections = [
