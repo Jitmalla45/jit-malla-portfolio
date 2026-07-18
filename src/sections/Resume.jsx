@@ -41,7 +41,7 @@ export default function Resume() {
               "Multimodal policy alignment",
               "Logic-guided trustworthy AI",
               "Trust and Transparency in AI",
-              "T2AIL member",
+              "Tr^2AIL member",
               "IIT Kharagpur CSE",
             ].map((item) => (
               <div key={item} className="rounded-lg border border-white/10 bg-white/[0.045] p-5">

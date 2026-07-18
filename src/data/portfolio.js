@@ -1,7 +1,7 @@
 export const profile = {
   name: "Jit Malla",
   title: "PhD Research Scholar, CSE, IIT Kharagpur",
-  affiliation: "Member of T2AIL: Trust and Transparency in AI through Logic",
+  affiliation: "Member of Tr^2AIL: Trust and Transparency in AI through Logic",
   linkedin: "https://www.linkedin.com/in/jitmalla",
   github: "https://github.com/Jitmalla45",
   geeksforgeeks: "https://www.geeksforgeeks.org/profile/jitmalla?tab=activity",
@@ -24,7 +24,7 @@ export const heroDashboard = [
     value: "Broad Area of Research: Neuro-symbolic architectures for multimodal policy alignment",
   },
   {
-    value: "Member of T2AIL: Trust and Transparency in AI through Logic",
+    value: "Member of Tr^2AIL: Trust and Transparency in AI through Logic",
   },
 ];
 
