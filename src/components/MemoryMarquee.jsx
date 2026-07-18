@@ -31,8 +31,9 @@ export default function MemoryMarquee({ items = [], reverse = false }) {
 
   const openLightbox = useCallback(
     (index) => {
-      if (!hasImages) return;
-      setActiveIndex(displayItems[index % displayItems.length].originalIndex || 0);
+      if (!hasImages || displayItems.length === 0) return;
+      const displayItem = displayItems[index % displayItems.length];
+      setActiveIndex(displayItem.originalIndex || 0);
       setIsLightboxOpen(true);
     },
     [displayItems, hasImages],
