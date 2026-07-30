@@ -4,6 +4,7 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import CodeScrollTrail from "./components/CodeScrollTrail.jsx";
 import CursorAura from "./components/CursorAura.jsx";
 import Navigation from "./components/Navigation.jsx";
 import Memories from "./pages/Memories.jsx";
@@ -116,6 +117,7 @@ export default function App() {
       <div className="min-h-screen overflow-hidden bg-void text-ink selection:bg-labCyan selection:text-void">
         <ScrollToTop />
         <CursorAura />
+        <CodeScrollTrail />
         <Routes>
           <Route path="/" element={<PortfolioHome />} />
           <Route path="/memories" element={<Memories />} />

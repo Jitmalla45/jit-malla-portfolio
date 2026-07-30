@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import React from "react";
 import GlassPanel from "../components/GlassPanel.jsx";
 import SectionHeader from "../components/SectionHeader.jsx";
-import { journey, profile } from "../data/portfolio";
+import { journey } from "../data/portfolio";
 
 export default function About() {
   return (
@@ -11,20 +11,8 @@ export default function About() {
         A portfolio designed as a living laboratory for Jit Malla&apos;s work across
         machine learning, vision, and structured intelligence.
       </SectionHeader>
-      <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
-        <motion.div
-          data-reveal
-          className="profile-frame mx-auto w-full max-w-sm lg:sticky lg:top-24"
-          whileHover={{ y: -8, scale: 1.02 }}
-          transition={{ type: "spring", stiffness: 220, damping: 18 }}
-        >
-          <img
-            src={profile.profileImage}
-            alt={`${profile.name} profile portrait`}
-            className="aspect-[4/5] w-full rounded-lg object-cover"
-          />
-        </motion.div>
-        <div className="grid gap-5">
+      <div className="mx-auto max-w-6xl">
+        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {journey.map((item, index) => (
             <GlassPanel
               key={item.title}

@@ -58,6 +58,7 @@ export default function Hero() {
             x: "calc(var(--hero-x, 0) * -18px)",
             y: "calc(var(--hero-y, 0) * -14px)",
           }}
+          className="order-2 lg:order-1"
         >
           <motion.div
             initial={{ opacity: 0, y: 26 }}
@@ -186,7 +187,7 @@ export default function Hero() {
             x: "calc(var(--hero-x, 0) * 24px)",
             y: "calc(var(--hero-y, 0) * 18px)",
           }}
-          className="relative mt-16 grid gap-6 lg:mt-0"
+          className="order-1 relative mt-4 grid gap-6 lg:order-2 lg:mt-0"
         >
           <div className="lab-dashboard">
             <div className="mb-5 text-center">
