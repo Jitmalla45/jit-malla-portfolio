@@ -1,5 +1,5 @@
 import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const nodes = [
   { id: "vision", x: 12, y: 23, label: "Computer Vision", tone: "cyan" },
@@ -54,7 +54,27 @@ const narrativePaths = [
 ];
 
 export default function CodeScrollTrail() {
+  const [canAnimateBackground, setCanAnimateBackground] = useState(false);
   const prefersReducedMotion = useReducedMotion();
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 768px) and (pointer: fine)");
+    const update = () => setCanAnimateBackground(mediaQuery.matches);
+
+    update();
+    mediaQuery.addEventListener("change", update);
+
+    return () => mediaQuery.removeEventListener("change", update);
+  }, []);
+
+  if (prefersReducedMotion || !canAnimateBackground) {
+    return null;
+  }
+
+  return <ResearchScrollTrail />;
+}
+
+function ResearchScrollTrail() {
   const { scrollYProgress } = useScroll();
   const smoothScroll = useSpring(scrollYProgress, { stiffness: 46, damping: 18, mass: 0.8 });
   const y = useTransform(smoothScroll, [0, 1], ["-5%", "9%"]);
@@ -69,10 +89,6 @@ export default function CodeScrollTrail() {
   const reasoningOpacity = useTransform(smoothScroll, [0.2, 0.42, 0.65], [0.15, 0.72, 0.25]);
   const alignmentOpacity = useTransform(smoothScroll, [0.55, 0.78, 1], [0.12, 0.7, 0.46]);
   const ribbonProgress = useTransform(smoothScroll, [0, 1], [0.12, 1]);
-
-  if (prefersReducedMotion) {
-    return null;
-  }
 
   return (
     <div className="code-scroll-trail" aria-hidden="true">

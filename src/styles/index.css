@@ -157,6 +157,15 @@ textarea {
   mix-blend-mode: screen;
 }
 
+.mobile-hero-backdrop {
+  background:
+    radial-gradient(circle at 72% 18%, rgba(53, 243, 255, 0.12), transparent 15rem),
+    radial-gradient(circle at 22% 78%, rgba(100, 255, 189, 0.08), transparent 14rem),
+    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+  background-size: auto, auto, 44px 44px, 44px 44px;
+}
+
 .scanlines {
   background: linear-gradient(to bottom, transparent 50%, rgba(255, 255, 255, 0.025) 51%);
   background-size: 100% 6px;
@@ -1272,7 +1281,14 @@ body::before {
   }
 
   .memory-marquee {
+    overflow-x: auto;
     mask-image: linear-gradient(90deg, transparent, black 5%, black 95%, transparent);
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .memory-marquee::-webkit-scrollbar {
+    display: none;
   }
 
   .memory-card {
@@ -1311,9 +1327,24 @@ body::before {
 }
 
 @media (max-width: 767px) {
+  .hero-lab {
+    min-height: auto;
+  }
+
+  .float-profile,
+  .type-stack {
+    animation: none;
+  }
+
   .hero-spotlight,
+  .scanlines,
+  .code-scroll-trail,
   body::before {
     display: none;
+  }
+
+  .hero-lab::before {
+    opacity: 0.42;
   }
 
   .lab-dashboard,

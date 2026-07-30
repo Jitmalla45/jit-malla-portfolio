@@ -11,22 +11,34 @@ export default function MemoryMarquee({ items = [], reverse = false }) {
   const controls = useAnimationControls();
   const shouldReduceMotion = useReducedMotion();
   const [activeIndex, setActiveIndex] = useState(0);
+  const [canAnimateMarquee, setCanAnimateMarquee] = useState(false);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const hasImages = items.length > 0;
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 768px) and (pointer: fine)");
+    const update = () => setCanAnimateMarquee(mediaQuery.matches);
+
+    update();
+    mediaQuery.addEventListener("change", update);
+
+    return () => mediaQuery.removeEventListener("change", update);
+  }, []);
+
   const displayItems = useMemo(
     () =>
       hasImages
-        ? items.slice(0, Math.min(items.length, 12)).map((item, index) => ({
+        ? items.slice(0, Math.min(items.length, canAnimateMarquee ? 12 : 6)).map((item, index) => ({
             ...item,
             originalIndex: index,
           }))
         : placeholderItems,
-    [hasImages, items],
+    [canAnimateMarquee, hasImages, items],
   );
 
   const marqueeItems = useMemo(
-    () => [...displayItems, ...displayItems],
-    [displayItems],
+    () => (canAnimateMarquee ? [...displayItems, ...displayItems] : displayItems),
+    [canAnimateMarquee, displayItems],
   );
 
   const openLightbox = useCallback(
@@ -54,7 +66,7 @@ export default function MemoryMarquee({ items = [], reverse = false }) {
   }, [items.length]);
 
   useEffect(() => {
-    if (shouldReduceMotion) {
+    if (shouldReduceMotion || !canAnimateMarquee) {
       controls.set({ x: 0 });
       return;
     }
@@ -67,14 +79,14 @@ export default function MemoryMarquee({ items = [], reverse = false }) {
         repeat: Infinity,
       },
     });
-  }, [controls, hasImages, reverse, shouldReduceMotion]);
+  }, [canAnimateMarquee, controls, hasImages, reverse, shouldReduceMotion]);
 
   const pause = () => {
-    if (!shouldReduceMotion) controls.stop();
+    if (!shouldReduceMotion && canAnimateMarquee) controls.stop();
   };
 
   const resume = () => {
-    if (shouldReduceMotion) return;
+    if (shouldReduceMotion || !canAnimateMarquee) return;
 
     controls.start({
       x: reverse ? ["-50%", "0%"] : ["0%", "-50%"],
@@ -99,7 +111,7 @@ export default function MemoryMarquee({ items = [], reverse = false }) {
           <motion.figure
             key={`${item.src || item.id}-${index}`}
             className="memory-card magnetic-target"
-            whileHover={{ y: -8, scale: 1.025 }}
+            whileHover={canAnimateMarquee ? { y: -8, scale: 1.025 } : undefined}
             transition={{ type: "spring", stiffness: 260, damping: 22 }}
             tabIndex={0}
             role={hasImages ? "button" : undefined}

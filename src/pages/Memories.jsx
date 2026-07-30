@@ -1,16 +1,41 @@
 import { motion } from "framer-motion";
 import { ArrowLeft, Images, Sparkles } from "lucide-react";
-import React from "react";
+import React, { Suspense, lazy, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import LabScene from "../components/LabScene.jsx";
 import MemoryMarquee from "../components/MemoryMarquee.jsx";
 import { memorySections } from "../data/memories.js";
+
+const LabScene = lazy(() => import("../components/LabScene.jsx"));
+
+function MemoriesBackdrop() {
+  const [canRenderScene, setCanRenderScene] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 768px) and (pointer: fine)");
+    const update = () => setCanRenderScene(mediaQuery.matches);
+
+    update();
+    mediaQuery.addEventListener("change", update);
+
+    return () => mediaQuery.removeEventListener("change", update);
+  }, []);
+
+  if (!canRenderScene) {
+    return <div className="mobile-hero-backdrop absolute inset-0" aria-hidden="true" />;
+  }
+
+  return (
+    <Suspense fallback={<div className="mobile-hero-backdrop absolute inset-0" aria-hidden="true" />}>
+      <LabScene />
+    </Suspense>
+  );
+}
 
 export default function Memories() {
   return (
     <main className="memories-page relative min-h-screen overflow-hidden bg-lab-radial pt-6">
       <div className="absolute inset-0 opacity-35">
-        <LabScene />
+        <MemoriesBackdrop />
       </div>
       <div className="scanlines absolute inset-0" />
       <div className="neural-grid pointer-events-none absolute inset-0 opacity-35" />

@@ -14,10 +14,11 @@ import {
   Music4,
   ShieldCheck,
 } from "lucide-react";
-import React, { useCallback } from "react";
+import React, { Suspense, lazy, useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import LabScene from "../components/LabScene.jsx";
 import { githubStats, heroDashboard, profile } from "../data/portfolio";
+
+const LabScene = lazy(() => import("../components/LabScene.jsx"));
 
 const words = [
   "Neuro-symbolic architectures",
@@ -28,8 +29,36 @@ const words = [
 
 const widgetIcons = [ShieldCheck, GraduationCap, BrainCircuit, ShieldCheck];
 
+function HeroBackdrop() {
+  const [canRenderScene, setCanRenderScene] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 768px) and (pointer: fine)");
+    const update = () => setCanRenderScene(mediaQuery.matches);
+
+    update();
+    mediaQuery.addEventListener("change", update);
+
+    return () => mediaQuery.removeEventListener("change", update);
+  }, []);
+
+  if (!canRenderScene) {
+    return <div className="mobile-hero-backdrop absolute inset-0" aria-hidden="true" />;
+  }
+
+  return (
+    <Suspense fallback={<div className="mobile-hero-backdrop absolute inset-0" aria-hidden="true" />}>
+      <LabScene />
+    </Suspense>
+  );
+}
+
 export default function Hero() {
   const handlePointerMove = useCallback((event) => {
+    if (!window.matchMedia("(pointer: fine)").matches) {
+      return;
+    }
+
     const rect = event.currentTarget.getBoundingClientRect();
     const x = ((event.clientX - rect.left) / rect.width - 0.5).toFixed(3);
     const y = ((event.clientY - rect.top) / rect.height - 0.5).toFixed(3);
@@ -47,7 +76,7 @@ export default function Hero() {
       onPointerMove={handlePointerMove}
     >
       <div className="absolute inset-0 opacity-50">
-        <LabScene />
+        <HeroBackdrop />
       </div>
       <div className="hero-spotlight absolute inset-0" />
       <div className="scanlines absolute inset-0" />
@@ -205,6 +234,10 @@ export default function Hero() {
                 <img
                   src={profile.profileImage}
                   alt={`${profile.name} profile portrait`}
+                  width="720"
+                  height="1080"
+                  decoding="async"
+                  fetchPriority="high"
                   className="aspect-[4/5] w-full rounded-lg object-cover"
                 />
               </motion.div>
