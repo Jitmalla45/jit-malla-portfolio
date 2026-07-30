@@ -26,6 +26,11 @@ body {
   font-family: Inter, ui-sans-serif, system-ui, sans-serif;
 }
 
+footer {
+  position: relative;
+  z-index: 10;
+}
+
 button,
 a,
 input,
@@ -35,7 +40,7 @@ textarea {
 
 @layer components {
   .section-shell {
-    @apply relative px-4 py-24 sm:px-6 lg:px-8;
+    @apply relative z-10 px-4 py-24 sm:px-6 lg:px-8;
   }
 
   .primary-button {
@@ -431,7 +436,8 @@ body::before {
   z-index: 1;
   pointer-events: none;
   overflow: hidden;
-  opacity: 0.75;
+  opacity: 0.44;
+  contain: paint;
 }
 
 .code-scroll-trail::before {
@@ -439,78 +445,551 @@ body::before {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(53, 243, 255, 0.08), transparent 22%, transparent 78%, rgba(100, 255, 189, 0.07)),
-    repeating-linear-gradient(135deg, transparent 0 34px, rgba(53, 243, 255, 0.035) 35px 36px);
+    linear-gradient(90deg, rgba(53, 243, 255, 0.035), transparent 22%, transparent 78%, rgba(100, 255, 189, 0.032)),
+    repeating-linear-gradient(135deg, transparent 0 34px, rgba(53, 243, 255, 0.018) 35px 36px);
   mask-image: linear-gradient(180deg, transparent, black 18%, black 82%, transparent);
 }
 
-.code-stream {
+.code-scroll-trail::after {
+  content: "";
   position: absolute;
-  top: 10vh;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 0 42%, rgba(2, 3, 10, 0.5) 82%);
+}
+
+.research-field {
+  position: absolute;
+  inset: 7vh max(0.75rem, calc((100vw - 94rem) / 2)) 5vh;
+  overflow: hidden;
+  border: 1px solid rgba(53, 243, 255, 0.08);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 18% 26%, rgba(53, 243, 255, 0.08), transparent 18rem),
+    radial-gradient(circle at 72% 64%, rgba(100, 255, 189, 0.07), transparent 20rem),
+    radial-gradient(circle at 54% 48%, rgba(255, 95, 143, 0.035), transparent 22rem),
+    linear-gradient(135deg, rgba(2, 3, 10, 0.08), transparent);
+  box-shadow: inset 0 0 80px rgba(53, 243, 255, 0.025);
+  contain: paint;
+  will-change: transform;
+}
+
+.research-field::before,
+.research-field::after {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background:
+    linear-gradient(90deg, transparent 0 18%, rgba(53, 243, 255, 0.05) 18.2%, transparent 18.8% 43%, rgba(100, 255, 189, 0.045) 43.2%, transparent 44%),
+    linear-gradient(0deg, transparent 0 30%, rgba(255, 209, 102, 0.035) 30.2%, transparent 30.8% 70%, rgba(53, 243, 255, 0.04) 70.2%, transparent 71%);
+  animation: circuitDrift 18s linear infinite;
+}
+
+.research-field::after {
+  animation-duration: 24s;
+  animation-direction: reverse;
+  opacity: 0.45;
+  transform: rotate(8deg);
+}
+
+.research-depth {
+  position: absolute;
+  z-index: 0;
+  inset: 16% 8%;
+  border: 1px solid rgba(53, 243, 255, 0.055);
+  border-radius: 9999px;
+  opacity: 0.7;
+  transform: rotate(-12deg);
+  will-change: transform;
+}
+
+.research-depth::before,
+.research-depth::after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: rgba(100, 255, 189, 0.42);
+  box-shadow: 0 0 22px rgba(100, 255, 189, 0.28);
+  animation: packetBlink 4.8s ease-in-out infinite;
+}
+
+.research-depth::before {
+  left: 18%;
+  top: 18%;
+}
+
+.research-depth::after {
+  right: 16%;
+  bottom: 24%;
+  animation-delay: -2.2s;
+}
+
+.research-depth-b {
+  inset: 24% 14%;
+  border-color: rgba(255, 209, 102, 0.055);
+  transform: rotate(16deg);
+}
+
+.research-phase {
+  position: absolute;
+  z-index: 1;
   display: grid;
-  gap: 16px;
-  color: rgba(100, 255, 189, 0.52);
+  width: clamp(9rem, 22vw, 18rem);
+  aspect-ratio: 1;
+  place-items: center;
+  border: 1px solid rgba(53, 243, 255, 0.055);
+  border-radius: 9999px;
+  background:
+    radial-gradient(circle, rgba(53, 243, 255, 0.07), transparent 64%),
+    conic-gradient(from 90deg, transparent, rgba(53, 243, 255, 0.08), transparent, rgba(100, 255, 189, 0.05), transparent);
+  animation: phaseOrbit 16s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.research-phase::before,
+.research-phase::after {
+  content: "";
+  position: absolute;
+  inset: 18%;
+  border: 1px dashed rgba(100, 255, 189, 0.08);
+  border-radius: inherit;
+}
+
+.research-phase::after {
+  inset: 36%;
+  border-style: solid;
+  border-color: rgba(255, 209, 102, 0.06);
+  animation: phaseCore 5.8s ease-in-out infinite;
+}
+
+.research-phase span {
+  color: rgba(220, 233, 255, 0.34);
   font-family: "JetBrains Mono", monospace;
-  font-size: clamp(0.64rem, 1vw, 0.78rem);
-  letter-spacing: 0;
-  text-transform: lowercase;
-  text-shadow: 0 0 16px rgba(100, 255, 189, 0.22);
+  font-size: clamp(0.6rem, 1vw, 0.84rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
-.code-stream span {
-  display: inline-flex;
-  width: max-content;
-  border-left: 1px solid rgba(53, 243, 255, 0.28);
-  background: linear-gradient(90deg, rgba(2, 3, 10, 0.34), transparent);
-  padding: 6px 12px;
+.research-phase-perception {
+  left: 5%;
+  top: 8%;
 }
 
-.code-stream-left {
-  left: max(1rem, calc((100vw - 82rem) / 2));
+.research-phase-reasoning {
+  left: 38%;
+  top: 36%;
+  animation-delay: -5s;
 }
 
-.code-stream-right {
-  right: max(1rem, calc((100vw - 82rem) / 2));
-  color: rgba(53, 243, 255, 0.48);
+.research-phase-alignment {
+  right: 4%;
+  bottom: 7%;
+  animation-delay: -9s;
 }
 
-.code-orbit {
+.research-compass {
   position: absolute;
   left: 50%;
-  top: 54%;
-  width: min(46vw, 34rem);
+  top: 50%;
+  z-index: 0;
+  width: min(62vw, 52rem);
   aspect-ratio: 1;
-  border: 1px solid rgba(53, 243, 255, 0.1);
+  border: 1px solid rgba(53, 243, 255, 0.055);
   border-radius: 9999px;
   transform: translate(-50%, -50%);
-  box-shadow: inset 0 0 44px rgba(53, 243, 255, 0.05);
+  box-shadow:
+    inset 0 0 60px rgba(53, 243, 255, 0.03),
+    0 0 70px rgba(100, 255, 189, 0.02);
+  will-change: transform;
 }
 
-.code-orbit span {
+.research-compass::before,
+.research-compass::after {
+  content: "";
   position: absolute;
-  display: block;
-  height: 7px;
-  width: 7px;
+  inset: 13%;
+  border: 1px dashed rgba(100, 255, 189, 0.08);
+  border-radius: inherit;
+  animation: compassBreathe 7.5s ease-in-out infinite;
+}
+
+.research-compass::after {
+  inset: 28%;
+  border-color: rgba(255, 209, 102, 0.07);
+  animation-delay: -2.2s;
+}
+
+.research-compass span {
+  position: absolute;
+  height: 1px;
+  width: 48%;
+  background: linear-gradient(90deg, transparent, rgba(53, 243, 255, 0.11), transparent);
+  left: 50%;
+  top: 50%;
+  transform-origin: left center;
+}
+
+.research-compass span:nth-child(1) {
+  transform: rotate(0deg);
+}
+
+.research-compass span:nth-child(2) {
+  transform: rotate(45deg);
+}
+
+.research-compass span:nth-child(3) {
+  transform: rotate(90deg);
+}
+
+.research-compass span:nth-child(4) {
+  transform: rotate(135deg);
+}
+
+.research-graph {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: visible;
+  will-change: transform;
+}
+
+.research-edge {
+  stroke: url("#researchEdge");
+  stroke-width: 0.24;
+  stroke-dasharray: 5 8;
+  stroke-linecap: round;
+  animation: edgeSignal 4.8s linear infinite, edgeGlow 7s ease-in-out infinite;
+}
+
+.research-ribbon {
+  fill: none;
+  stroke: rgba(53, 243, 255, 0.18);
+  stroke-width: 0.52;
+  stroke-linecap: round;
+  stroke-dasharray: 1 8;
+  filter: drop-shadow(0 0 12px rgba(53, 243, 255, 0.18));
+  animation: ribbonFlow 8s ease-in-out infinite;
+}
+
+.research-ribbon-2 {
+  stroke: rgba(100, 255, 189, 0.17);
+}
+
+.research-ribbon-3 {
+  stroke: rgba(255, 209, 102, 0.13);
+}
+
+.research-ribbon-4 {
+  stroke: rgba(255, 95, 143, 0.12);
+}
+
+.research-node circle:first-child {
+  fill: #64ffbd;
+}
+
+.research-node {
+  animation: nodePulse 5.2s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.research-node-halo {
+  fill: rgba(53, 243, 255, 0.08);
+  stroke: rgba(53, 243, 255, 0.38);
+  stroke-width: 0.2;
+}
+
+.research-node-cyan circle:first-child {
+  fill: rgba(53, 243, 255, 0.88);
+}
+
+.research-node-cyan .research-node-halo {
+  fill: rgba(53, 243, 255, 0.08);
+  stroke: rgba(53, 243, 255, 0.42);
+}
+
+.research-node-mint circle:first-child {
+  fill: rgba(100, 255, 189, 0.88);
+}
+
+.research-node-mint .research-node-halo {
+  fill: rgba(100, 255, 189, 0.08);
+  stroke: rgba(100, 255, 189, 0.42);
+}
+
+.research-node-gold circle:first-child {
+  fill: rgba(255, 209, 102, 0.88);
+}
+
+.research-node-gold .research-node-halo {
+  fill: rgba(255, 209, 102, 0.08);
+  stroke: rgba(255, 209, 102, 0.42);
+}
+
+.research-node-rose circle:first-child {
+  fill: rgba(255, 95, 143, 0.86);
+}
+
+.research-node-rose .research-node-halo {
+  fill: rgba(255, 95, 143, 0.08);
+  stroke: rgba(255, 95, 143, 0.42);
+}
+
+.research-label {
+  position: absolute;
+  z-index: 2;
+  transform: translate(-50%, calc(-100% - 12px));
+  border: 1px solid rgba(53, 243, 255, 0.22);
   border-radius: 9999px;
-  background: #64ffbd;
-  box-shadow: 0 0 22px rgba(100, 255, 189, 0.55);
+  background: rgba(2, 3, 10, 0.26);
+  padding: 6px 10px;
+  color: rgba(220, 233, 255, 0.58);
+  font-family: "JetBrains Mono", monospace;
+  font-size: clamp(0.58rem, 0.85vw, 0.74rem);
+  letter-spacing: 0;
+  white-space: nowrap;
+  box-shadow: 0 0 12px rgba(53, 243, 255, 0.035);
+  animation: labelPulse 5.5s ease-in-out infinite, labelFloat 8s ease-in-out infinite;
 }
 
-.code-orbit span:nth-child(1) {
-  left: 16%;
-  top: 24%;
+.research-label-mint {
+  border-color: rgba(100, 255, 189, 0.22);
+  color: rgba(210, 255, 234, 0.58);
 }
 
-.code-orbit span:nth-child(2) {
-  right: 18%;
-  top: 36%;
-  background: #35f3ff;
+.research-label-gold {
+  border-color: rgba(255, 209, 102, 0.24);
+  color: rgba(255, 242, 194, 0.58);
 }
 
-.code-orbit span:nth-child(3) {
-  bottom: 18%;
-  left: 47%;
-  background: #ffd166;
+.research-label-rose {
+  border-color: rgba(255, 95, 143, 0.24);
+  color: rgba(255, 218, 228, 0.58);
+}
+
+.circuit-scan {
+  position: absolute;
+  z-index: 1;
+  left: -22%;
+  width: 32%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(100, 255, 189, 0.48), transparent);
+  box-shadow: 0 0 18px rgba(100, 255, 189, 0.25);
+  animation: scanAcross 7s ease-in-out infinite, scanBend 7s ease-in-out infinite;
+}
+
+.circuit-scan-one {
+  top: 34%;
+}
+
+.circuit-scan-two {
+  top: 63%;
+  animation-delay: 2.8s;
+  background: linear-gradient(90deg, transparent, rgba(53, 243, 255, 0.46), transparent);
+}
+
+.circuit-scan-three {
+  top: 48%;
+  height: 1px;
+  animation-delay: 4.6s;
+  animation-duration: 9s;
+  background: linear-gradient(90deg, transparent, rgba(255, 209, 102, 0.38), transparent);
+  transform: rotate(-10deg);
+}
+
+.inference-ripple {
+  position: absolute;
+  z-index: 1;
+  border: 1px solid rgba(53, 243, 255, 0.1);
+  border-radius: 9999px;
+  opacity: 0;
+  animation: rippleExpand 8s ease-out infinite;
+}
+
+.inference-ripple-one {
+  left: 39%;
+  top: 30%;
+  width: 8rem;
+  height: 8rem;
+}
+
+.inference-ripple-two {
+  left: 58%;
+  top: 64%;
+  width: 10rem;
+  height: 10rem;
+  border-color: rgba(100, 255, 189, 0.1);
+  animation-delay: -3.6s;
+}
+
+@keyframes circuitDrift {
+  from {
+    transform: translate3d(-4%, -3%, 0);
+  }
+  to {
+    transform: translate3d(4%, 3%, 0);
+  }
+}
+
+@keyframes edgeSignal {
+  from {
+    stroke-dashoffset: 26;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes edgeGlow {
+  0%,
+  100% {
+    opacity: 0.24;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes nodePulse {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 0.82;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes compassBreathe {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 0.72;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes packetBlink {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(0.7);
+  }
+  45% {
+    opacity: 0.85;
+    transform: scale(1.15);
+  }
+}
+
+@keyframes phaseOrbit {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(0.96);
+  }
+  35% {
+    transform: translate3d(14px, -10px, 0) rotate(18deg) scale(1.04);
+  }
+  70% {
+    transform: translate3d(-10px, 12px, 0) rotate(-12deg) scale(0.99);
+  }
+}
+
+@keyframes phaseCore {
+  0%,
+  100% {
+    transform: scale(0.78);
+    opacity: 0.35;
+  }
+  50% {
+    transform: scale(1.18);
+    opacity: 0.75;
+  }
+}
+
+@keyframes ribbonFlow {
+  0%,
+  100% {
+    stroke-dashoffset: 36;
+    opacity: 0.22;
+  }
+  45% {
+    stroke-dashoffset: 8;
+    opacity: 0.62;
+  }
+  75% {
+    stroke-dashoffset: -12;
+    opacity: 0.36;
+  }
+}
+
+@keyframes scanAcross {
+  0%,
+  16% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  26%,
+  70% {
+    opacity: 1;
+  }
+  88%,
+  100% {
+    transform: translateX(430%);
+    opacity: 0;
+  }
+}
+
+@keyframes scanBend {
+  0%,
+  100% {
+    border-radius: 9999px;
+  }
+  50% {
+    border-radius: 12px;
+  }
+}
+
+@keyframes rippleExpand {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.45);
+  }
+  18% {
+    opacity: 0.45;
+  }
+  72%,
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(2.1);
+  }
+}
+
+@keyframes labelPulse {
+  0%,
+  100% {
+    border-color: rgba(53, 243, 255, 0.18);
+    opacity: 0.38;
+  }
+  50% {
+    border-color: rgba(100, 255, 189, 0.42);
+    opacity: 0.66;
+  }
+}
+
+@keyframes labelFloat {
+  0%,
+  100% {
+    margin-top: 0;
+  }
+  50% {
+    margin-top: -6px;
+  }
 }
 
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
@@ -764,26 +1243,28 @@ body::before {
   }
 
   .code-scroll-trail {
-    opacity: 0.46;
+    opacity: 0.28;
   }
 
-  .code-stream {
-    top: 6vh;
-    gap: 12px;
+  .research-field {
+    inset: 7vh -8rem 8vh -6rem;
   }
 
-  .code-stream-left {
-    left: 0.5rem;
+  .research-label {
+    opacity: 0.45;
+    transform: translate(-50%, calc(-100% - 8px)) scale(0.88);
   }
 
-  .code-stream-right {
+  .research-phase {
+    width: 11rem;
+  }
+
+  .research-phase span {
     display: none;
   }
 
-  .code-orbit {
-    left: 66%;
-    top: 48%;
-    width: 18rem;
+  .research-ribbon {
+    stroke-width: 0.36;
   }
 
   .dashboard-socials {
@@ -857,7 +1338,18 @@ body::before {
 @media (prefers-reduced-motion: reduce) {
   .float-profile,
   .type-stack,
-  .memory-track {
+  .memory-track,
+  .research-field::before,
+  .research-field::after,
+  .research-depth::before,
+  .research-depth::after,
+  .research-phase,
+  .research-phase::after,
+  .research-edge,
+  .research-ribbon,
+  .circuit-scan,
+  .inference-ripple,
+  .research-label {
     animation: none;
   }
 

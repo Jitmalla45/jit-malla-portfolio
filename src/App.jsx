@@ -23,6 +23,7 @@ function PortfolioHome() {
   return (
     <>
       <Navigation />
+      <CodeScrollTrail />
       <main>
         <Hero />
         <About />
@@ -117,7 +118,6 @@ export default function App() {
       <div className="min-h-screen overflow-hidden bg-void text-ink selection:bg-labCyan selection:text-void">
         <ScrollToTop />
         <CursorAura />
-        <CodeScrollTrail />
         <Routes>
           <Route path="/" element={<PortfolioHome />} />
           <Route path="/memories" element={<Memories />} />
