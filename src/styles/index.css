@@ -459,72 +459,21 @@ body::before {
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
-  opacity: 0.34;
+  opacity: 0.18;
 }
 
-.ai-simple-bg::before,
-.ai-simple-bg::after {
+.ai-simple-bg::before {
   content: "";
   position: absolute;
-  inset: -12%;
+  inset: -8%;
   background:
-    linear-gradient(rgba(53, 243, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(100, 255, 189, 0.03) 1px, transparent 1px);
-  background-size: 76px 76px;
+    linear-gradient(rgba(53, 243, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(100, 255, 189, 0.04) 1px, transparent 1px),
+    radial-gradient(circle at 18% 24%, rgba(53, 243, 255, 0.18) 0 2px, transparent 3px),
+    radial-gradient(circle at 72% 36%, rgba(100, 255, 189, 0.14) 0 2px, transparent 3px);
+  background-size: 92px 92px, 92px 92px, 360px 360px, 360px 360px;
   transform: translate3d(0, 0, 0);
-  animation: aiGridDrift 44s linear infinite;
-}
-
-.ai-simple-bg::after {
-  background:
-    radial-gradient(circle at 18% 24%, rgba(53, 243, 255, 0.16) 0 2px, transparent 3px),
-    radial-gradient(circle at 72% 36%, rgba(100, 255, 189, 0.14) 0 2px, transparent 3px),
-    radial-gradient(circle at 44% 76%, rgba(255, 209, 102, 0.12) 0 2px, transparent 3px);
-  background-size: 320px 320px;
-  animation-duration: 58s;
-  animation-direction: reverse;
-}
-
-.ai-bg-node {
-  position: absolute;
-  width: 9px;
-  height: 9px;
-  border: 1px solid rgba(100, 255, 189, 0.5);
-  border-radius: 9999px;
-  background: rgba(53, 243, 255, 0.22);
-  transform: translate3d(0, 0, 0);
-  animation: aiNodeFloat 12s ease-in-out infinite;
-}
-
-.ai-bg-node-one {
-  left: 13%;
-  top: 28%;
-}
-
-.ai-bg-node-two {
-  right: 16%;
-  top: 42%;
-  animation-delay: -3.5s;
-}
-
-.ai-bg-node-three {
-  left: 55%;
-  bottom: 18%;
-  animation-delay: -7s;
-}
-
-.scroll-progress {
-  --scroll-progress: 0;
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 60;
-  width: 100%;
-  height: 3px;
-  transform-origin: left center;
-  transform: scaleX(var(--scroll-progress));
-  background: linear-gradient(90deg, #35f3ff, #64ffbd, #ffd166);
-  pointer-events: none;
+  animation: aiGridDrift 90s linear infinite;
 }
 
 .pointer-signal {
@@ -532,12 +481,12 @@ body::before {
   left: -9px;
   top: -9px;
   z-index: 70;
-  width: 18px;
-  height: 18px;
+  width: 14px;
+  height: 14px;
   pointer-events: none;
-  border: 1px solid rgba(53, 243, 255, 0.65);
+  border: 1px solid rgba(53, 243, 255, 0.55);
   border-radius: 9999px;
-  background: rgba(100, 255, 189, 0.12);
+  background: rgba(100, 255, 189, 0.1);
   transition: opacity 160ms ease;
 }
 
@@ -546,8 +495,8 @@ body::before {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 4px;
-  height: 4px;
+  width: 3px;
+  height: 3px;
   border-radius: inherit;
   background: rgba(100, 255, 189, 0.9);
   transform: translate(-50%, -50%);
@@ -558,19 +507,7 @@ body::before {
     transform: translate3d(0, 0, 0);
   }
   to {
-    transform: translate3d(76px, 76px, 0);
-  }
-}
-
-@keyframes aiNodeFloat {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0);
-    opacity: 0.45;
-  }
-  50% {
-    transform: translate3d(18px, -14px, 0);
-    opacity: 0.85;
+    transform: translate3d(92px, 92px, 0);
   }
 }
 
