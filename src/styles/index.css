@@ -466,7 +466,7 @@ body::before {
   z-index: 2;
   pointer-events: none;
   overflow: hidden;
-  opacity: 0.52;
+  opacity: 0.7;
 }
 
 .ai-simple-bg::before,
@@ -492,6 +492,61 @@ body::before {
   transform: translate3d(calc(var(--scroll-shift-soft) * -1), var(--scroll-shift-tiny), 0);
   animation-duration: 90s;
   animation-direction: reverse;
+}
+
+.ai-neural-map {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(118vw, 92rem);
+  height: auto;
+  opacity: calc(0.42 + (var(--scroll-progress) * 0.2));
+  overflow: visible;
+  transform: translate3d(calc(-50% + var(--scroll-shift-tiny)), calc(-50% - var(--scroll-shift-soft)), 0)
+    rotate(calc(var(--scroll-rotate) * -0.65));
+  filter: drop-shadow(0 0 16px rgba(53, 243, 255, 0.12));
+}
+
+.ai-map-link {
+  fill: none;
+  stroke-linecap: round;
+  stroke-width: 1.15;
+  stroke-dasharray: 8 18;
+  animation: aiLinkFlow 14s linear infinite;
+}
+
+.ai-map-link-one,
+.ai-map-link-four {
+  stroke: rgba(53, 243, 255, 0.48);
+}
+
+.ai-map-link-two {
+  stroke: rgba(100, 255, 189, 0.4);
+  animation-duration: 18s;
+  animation-direction: reverse;
+}
+
+.ai-map-link-three {
+  stroke: rgba(255, 209, 102, 0.32);
+  animation-duration: 20s;
+}
+
+.ai-map-node {
+  fill: rgba(2, 3, 10, 0.75);
+  stroke: rgba(100, 255, 189, 0.72);
+  stroke-width: 1.8;
+  animation: aiNodePulse 7s ease-in-out infinite;
+}
+
+.ai-map-node-two,
+.ai-map-node-five {
+  stroke: rgba(53, 243, 255, 0.72);
+  animation-delay: -2.5s;
+}
+
+.ai-map-node-three {
+  stroke: rgba(255, 209, 102, 0.58);
+  animation-delay: -5s;
 }
 
 .ai-scroll-path {
@@ -550,6 +605,53 @@ body::before {
   transform: translate3d(var(--scroll-shift-tiny), calc(var(--scroll-shift-soft) * -1), 0);
 }
 
+.ai-bg-node-four {
+  right: 32%;
+  top: 12%;
+  border-color: rgba(255, 209, 102, 0.38);
+  background: rgba(255, 209, 102, 0.14);
+  animation-delay: -2s;
+  transform: translate3d(calc(var(--scroll-shift-soft) * -1), calc(var(--scroll-shift-node) * -1), 0);
+}
+
+.ai-bg-node-five {
+  left: 34%;
+  top: 72%;
+  animation-delay: -6s;
+  transform: translate3d(calc(var(--scroll-shift-y) * 0.55), var(--scroll-shift-tiny), 0);
+}
+
+.ai-data-stream {
+  position: absolute;
+  width: min(26vw, 18rem);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(220, 233, 255, 0.68), transparent);
+  opacity: 0.46;
+  transform-origin: center;
+  animation: aiStreamBlink 6.5s ease-in-out infinite;
+}
+
+.ai-data-stream-one {
+  left: 12%;
+  top: 36%;
+  transform: translate3d(var(--scroll-shift-soft), calc(var(--scroll-shift-tiny) * -1), 0) rotate(-18deg);
+}
+
+.ai-data-stream-two {
+  right: 9%;
+  top: 62%;
+  animation-delay: -2.2s;
+  transform: translate3d(calc(var(--scroll-shift-y) * -0.45), var(--scroll-shift-node), 0) rotate(22deg);
+}
+
+.ai-data-stream-three {
+  left: 44%;
+  top: 22%;
+  width: min(18vw, 12rem);
+  animation-delay: -4.4s;
+  transform: translate3d(var(--scroll-shift-tiny), var(--scroll-shift-soft), 0) rotate(68deg);
+}
+
 .ai-code-token {
   position: absolute;
   color: rgba(220, 233, 255, 0.48);
@@ -592,6 +694,38 @@ body::before {
   transform: translate3d(calc(var(--scroll-shift-tiny) * -1), var(--scroll-shift-soft), 0);
 }
 
+.ai-code-token-five {
+  right: 24%;
+  top: 72%;
+  color: rgba(100, 255, 189, 0.42);
+  animation-delay: -4.5s;
+  transform: translate3d(calc(var(--scroll-shift-y) * -0.35), calc(var(--scroll-shift-node) * -1), 0);
+}
+
+.ai-code-token-six {
+  left: 58%;
+  top: 9%;
+  color: rgba(220, 233, 255, 0.38);
+  animation-delay: -7.5s;
+  transform: translate3d(var(--scroll-shift-node), var(--scroll-shift-tiny), 0);
+}
+
+.ai-code-token-seven {
+  right: 6%;
+  bottom: 32%;
+  color: rgba(53, 243, 255, 0.4);
+  animation-delay: -1.5s;
+  transform: translate3d(calc(var(--scroll-shift-soft) * -1), calc(var(--scroll-shift-tiny) * -1), 0);
+}
+
+.ai-code-token-eight {
+  left: 10%;
+  bottom: 8%;
+  color: rgba(255, 209, 102, 0.36);
+  animation-delay: -10s;
+  transform: translate3d(var(--scroll-shift-soft), calc(var(--scroll-shift-node) * -1), 0);
+}
+
 .ai-chip {
   position: absolute;
   width: 3.1rem;
@@ -630,6 +764,17 @@ body::before {
   bottom: 20%;
   border-color: rgba(100, 255, 189, 0.12);
   transform: translate3d(var(--scroll-shift-soft), calc(var(--scroll-shift-tiny) * -1), 0)
+    rotate(45deg);
+}
+
+.ai-chip-three {
+  right: 9%;
+  bottom: 12%;
+  width: 2.45rem;
+  height: 2.45rem;
+  border-color: rgba(255, 209, 102, 0.2);
+  opacity: 0.62;
+  transform: translate3d(calc(var(--scroll-shift-node) * -1), calc(var(--scroll-shift-soft) * -1), 0)
     rotate(45deg);
 }
 
@@ -689,6 +834,28 @@ body::before {
   }
   50% {
     opacity: 0.8;
+  }
+}
+
+@keyframes aiLinkFlow {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -104;
+  }
+}
+
+@keyframes aiStreamBlink {
+  0%,
+  100% {
+    opacity: 0.14;
+    filter: blur(0);
+  }
+  48%,
+  58% {
+    opacity: 0.64;
+    filter: blur(0.2px);
   }
 }
 

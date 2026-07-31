@@ -16,7 +16,6 @@ function PortfolioHome() {
   return (
     <>
       <Navigation />
-      <SimpleEffects />
       <main>
         <Hero />
         <About />
@@ -76,6 +75,7 @@ export default function App() {
   return (
     <div className="min-h-screen overflow-hidden bg-void text-ink selection:bg-labCyan selection:text-void">
       <ScrollToTop />
+      <SimpleEffects />
       <Routes>
         <Route path="/" element={<PortfolioHome />} />
         <Route path="/memories" element={<Memories />} />
