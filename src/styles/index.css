@@ -454,6 +454,13 @@ body::before {
 }
 
 .ai-simple-bg {
+  --scroll-progress: 0;
+  --scroll-shift: 0px;
+  --scroll-shift-y: 0px;
+  --scroll-shift-soft: 0px;
+  --scroll-shift-tiny: 0px;
+  --scroll-shift-node: 0px;
+  --scroll-rotate: 0deg;
   position: fixed;
   inset: 0;
   z-index: 0;
@@ -471,7 +478,8 @@ body::before {
     linear-gradient(rgba(53, 243, 255, 0.035) 1px, transparent 1px),
     linear-gradient(90deg, rgba(100, 255, 189, 0.03) 1px, transparent 1px);
   background-size: 82px 82px;
-  transform: translate3d(0, 0, 0);
+  transform: translate3d(var(--scroll-shift), var(--scroll-shift-y), 0)
+    rotate(var(--scroll-rotate));
   animation: aiGridDrift 70s linear infinite;
 }
 
@@ -481,8 +489,34 @@ body::before {
     radial-gradient(circle at 72% 36%, rgba(100, 255, 189, 0.12) 0 2px, transparent 3px),
     radial-gradient(circle at 44% 76%, rgba(255, 209, 102, 0.1) 0 2px, transparent 3px);
   background-size: 320px 320px;
+  transform: translate3d(calc(var(--scroll-shift-soft) * -1), var(--scroll-shift-tiny), 0);
   animation-duration: 90s;
   animation-direction: reverse;
+}
+
+.ai-scroll-path {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(68vw, 58rem);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(53, 243, 255, 0.34), rgba(100, 255, 189, 0.28), transparent);
+  transform-origin: center;
+  opacity: calc(0.14 + (var(--scroll-progress) * 0.18));
+}
+
+.ai-scroll-path-one {
+  transform: translate3d(-50%, calc(-50% + var(--scroll-shift)), 0) rotate(18deg);
+}
+
+.ai-scroll-path-two {
+  transform: translate3d(calc(-50% - var(--scroll-shift-soft)), -50%, 0) rotate(-28deg);
+}
+
+.ai-scroll-path-three {
+  transform: translate3d(calc(-50% + var(--scroll-shift-tiny)), calc(-50% - var(--scroll-shift-y)), 0)
+    rotate(52deg);
+  background: linear-gradient(90deg, transparent, rgba(255, 209, 102, 0.24), rgba(53, 243, 255, 0.24), transparent);
 }
 
 .ai-bg-node {
@@ -493,24 +527,27 @@ body::before {
   border-radius: 9999px;
   background: rgba(53, 243, 255, 0.18);
   transform: translate3d(0, 0, 0);
-  animation: aiNodeFloat 14s ease-in-out infinite;
+  animation: aiNodePulse 8s ease-in-out infinite;
 }
 
 .ai-bg-node-one {
   left: 13%;
   top: 28%;
+  transform: translate3d(var(--scroll-shift-node), calc(var(--scroll-shift-tiny) * -1), 0);
 }
 
 .ai-bg-node-two {
   right: 16%;
   top: 42%;
   animation-delay: -4s;
+  transform: translate3d(calc(var(--scroll-shift-tiny) * -1), var(--scroll-shift-tiny), 0);
 }
 
 .ai-bg-node-three {
   left: 55%;
   bottom: 18%;
   animation-delay: -8s;
+  transform: translate3d(var(--scroll-shift-tiny), calc(var(--scroll-shift-soft) * -1), 0);
 }
 
 .scroll-progress {
@@ -562,14 +599,12 @@ body::before {
   }
 }
 
-@keyframes aiNodeFloat {
+@keyframes aiNodePulse {
   0%,
   100% {
-    transform: translate3d(0, 0, 0);
     opacity: 0.45;
   }
   50% {
-    transform: translate3d(16px, -12px, 0);
     opacity: 0.8;
   }
 }
