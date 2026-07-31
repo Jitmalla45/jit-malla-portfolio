@@ -1,4 +1,3 @@
-import { motion, useAnimationControls, useReducedMotion } from "framer-motion";
 import { ImageOff } from "lucide-react";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import ImageLightbox from "./ImageLightbox.jsx";
@@ -8,15 +7,15 @@ const placeholderItems = Array.from({ length: 6 }, (_, index) => ({
 }));
 
 export default function MemoryMarquee({ items = [], reverse = false }) {
-  const controls = useAnimationControls();
-  const shouldReduceMotion = useReducedMotion();
   const [activeIndex, setActiveIndex] = useState(0);
   const [canAnimateMarquee, setCanAnimateMarquee] = useState(false);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const hasImages = items.length > 0;
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(min-width: 768px) and (pointer: fine)");
+    const mediaQuery = window.matchMedia(
+      "(min-width: 768px) and (pointer: fine) and (prefers-reduced-motion: no-preference)",
+    );
     const update = () => setCanAnimateMarquee(mediaQuery.matches);
 
     update();
@@ -65,54 +64,13 @@ export default function MemoryMarquee({ items = [], reverse = false }) {
     setActiveIndex((currentIndex) => (currentIndex + 1) % items.length);
   }, [items.length]);
 
-  useEffect(() => {
-    if (shouldReduceMotion || !canAnimateMarquee) {
-      controls.set({ x: 0 });
-      return;
-    }
-
-    controls.start({
-      x: reverse ? ["-50%", "0%"] : ["0%", "-50%"],
-      transition: {
-        duration: hasImages ? 100 : 75,
-        ease: "linear",
-        repeat: Infinity,
-      },
-    });
-  }, [canAnimateMarquee, controls, hasImages, reverse, shouldReduceMotion]);
-
-  const pause = () => {
-    if (!shouldReduceMotion && canAnimateMarquee) controls.stop();
-  };
-
-  const resume = () => {
-    if (shouldReduceMotion || !canAnimateMarquee) return;
-
-    controls.start({
-      x: reverse ? ["-50%", "0%"] : ["0%", "-50%"],
-      transition: {
-        duration: hasImages ? 100 : 75,
-        ease: "linear",
-        repeat: Infinity,
-      },
-    });
-  };
-
   return (
-    <div
-      className="memory-marquee"
-      onMouseEnter={pause}
-      onMouseLeave={resume}
-      onFocus={pause}
-      onBlur={resume}
-    >
-      <motion.div className="memory-track" animate={controls}>
+    <div className="memory-marquee">
+      <div className={`memory-track ${canAnimateMarquee ? "memory-track-animated" : ""} ${reverse ? "memory-track-reverse" : ""}`}>
         {marqueeItems.map((item, index) => (
-          <motion.figure
+          <figure
             key={`${item.src || item.id}-${index}`}
             className="memory-card magnetic-target"
-            whileHover={canAnimateMarquee ? { y: -8, scale: 1.025 } : undefined}
-            transition={{ type: "spring", stiffness: 260, damping: 22 }}
             tabIndex={0}
             role={hasImages ? "button" : undefined}
             aria-label={hasImages ? `Open ${item.alt || "personal memory"}` : undefined}
@@ -143,9 +101,9 @@ export default function MemoryMarquee({ items = [], reverse = false }) {
             <figcaption className="sr-only">
               {hasImages ? item.alt || "Personal memory" : "Awaiting memory image"}
             </figcaption>
-          </motion.figure>
+          </figure>
         ))}
-      </motion.div>
+      </div>
       <ImageLightbox
         images={items}
         activeIndex={activeIndex}

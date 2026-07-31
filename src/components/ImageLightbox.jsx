@@ -1,4 +1,3 @@
-import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import React, { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
@@ -78,78 +77,65 @@ export default function ImageLightbox({
   }, [canNavigate, isOpen, onClose, onNext, onPrevious]);
 
   if (typeof document === "undefined") return null;
+  if (!isOpen || !activeImage) return null;
 
   return createPortal(
-    <AnimatePresence>
-      {isOpen && activeImage && (
-        <motion.div
-          className="image-lightbox"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.24, ease: "easeOut" }}
-          role="dialog"
-          aria-modal="true"
-          aria-label="Memory image viewer"
-          ref={modalRef}
+    <div
+      className="image-lightbox"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Memory image viewer"
+      ref={modalRef}
+    >
+      <button
+        type="button"
+        className="image-lightbox-backdrop"
+        aria-label="Close image viewer"
+        onClick={onClose}
+        tabIndex={-1}
+      />
+
+      <div className="image-lightbox-controls">
+        <button
+          type="button"
+          className="image-lightbox-button"
+          aria-label="Close image viewer"
+          onClick={onClose}
+          ref={closeButtonRef}
         >
-          <motion.button
+          <X size={22} />
+        </button>
+      </div>
+
+      {canNavigate && (
+        <>
+          <button
             type="button"
-            className="image-lightbox-backdrop"
-            aria-label="Close image viewer"
-            onClick={onClose}
-            tabIndex={-1}
-          />
-
-          <div className="image-lightbox-controls">
-            <button
-              type="button"
-              className="image-lightbox-button"
-              aria-label="Close image viewer"
-              onClick={onClose}
-              ref={closeButtonRef}
-            >
-              <X size={22} />
-            </button>
-          </div>
-
-          {canNavigate && (
-            <>
-              <button
-                type="button"
-                className="image-lightbox-nav image-lightbox-nav-previous"
-                aria-label="Previous image"
-                onClick={onPrevious}
-              >
-                <ChevronLeft size={28} />
-              </button>
-              <button
-                type="button"
-                className="image-lightbox-nav image-lightbox-nav-next"
-                aria-label="Next image"
-                onClick={onNext}
-              >
-                <ChevronRight size={28} />
-              </button>
-            </>
-          )}
-
-          <motion.div
-            className="image-lightbox-frame"
-            initial={{ scale: 0.95, opacity: 0, filter: "blur(12px)" }}
-            animate={{ scale: 1, opacity: 1, filter: "blur(0px)" }}
-            exit={{ scale: 0.95, opacity: 0, filter: "blur(12px)" }}
-            transition={{ duration: 0.28, ease: "easeOut" }}
+            className="image-lightbox-nav image-lightbox-nav-previous"
+            aria-label="Previous image"
+            onClick={onPrevious}
           >
-            <img
-              src={activeImage.src}
-              alt={activeImage.alt || "Personal memory"}
-              className="image-lightbox-image"
-            />
-          </motion.div>
-        </motion.div>
+            <ChevronLeft size={28} />
+          </button>
+          <button
+            type="button"
+            className="image-lightbox-nav image-lightbox-nav-next"
+            aria-label="Next image"
+            onClick={onNext}
+          >
+            <ChevronRight size={28} />
+          </button>
+        </>
       )}
-    </AnimatePresence>,
+
+      <div className="image-lightbox-frame">
+        <img
+          src={activeImage.src}
+          alt={activeImage.alt || "Personal memory"}
+          className="image-lightbox-image"
+        />
+      </div>
+    </div>,
     document.body,
   );
 }

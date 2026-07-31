@@ -38,6 +38,17 @@ textarea {
   -webkit-tap-highlight-color: transparent;
 }
 
+[data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 32px, 0);
+  transition: opacity 600ms ease, transform 600ms ease;
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
 @layer components {
   .section-shell {
     @apply relative z-10 px-4 py-24 sm:px-6 lg:px-8;
@@ -187,6 +198,15 @@ textarea {
   }
   50% {
     transform: translateY(-10px);
+  }
+}
+
+@keyframes memoryDrift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
@@ -430,13 +450,128 @@ textarea {
 }
 
 body::before {
-  content: "";
+  display: none;
+}
+
+.ai-simple-bg {
   position: fixed;
   inset: 0;
+  z-index: 0;
   pointer-events: none;
-  z-index: 35;
-  background: radial-gradient(circle at var(--cursor-x) var(--cursor-y), rgba(53, 243, 255, 0.08), transparent 18rem);
-  mix-blend-mode: screen;
+  overflow: hidden;
+  opacity: 0.34;
+}
+
+.ai-simple-bg::before,
+.ai-simple-bg::after {
+  content: "";
+  position: absolute;
+  inset: -12%;
+  background:
+    linear-gradient(rgba(53, 243, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(100, 255, 189, 0.03) 1px, transparent 1px);
+  background-size: 76px 76px;
+  transform: translate3d(0, 0, 0);
+  animation: aiGridDrift 44s linear infinite;
+}
+
+.ai-simple-bg::after {
+  background:
+    radial-gradient(circle at 18% 24%, rgba(53, 243, 255, 0.16) 0 2px, transparent 3px),
+    radial-gradient(circle at 72% 36%, rgba(100, 255, 189, 0.14) 0 2px, transparent 3px),
+    radial-gradient(circle at 44% 76%, rgba(255, 209, 102, 0.12) 0 2px, transparent 3px);
+  background-size: 320px 320px;
+  animation-duration: 58s;
+  animation-direction: reverse;
+}
+
+.ai-bg-node {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border: 1px solid rgba(100, 255, 189, 0.5);
+  border-radius: 9999px;
+  background: rgba(53, 243, 255, 0.22);
+  transform: translate3d(0, 0, 0);
+  animation: aiNodeFloat 12s ease-in-out infinite;
+}
+
+.ai-bg-node-one {
+  left: 13%;
+  top: 28%;
+}
+
+.ai-bg-node-two {
+  right: 16%;
+  top: 42%;
+  animation-delay: -3.5s;
+}
+
+.ai-bg-node-three {
+  left: 55%;
+  bottom: 18%;
+  animation-delay: -7s;
+}
+
+.scroll-progress {
+  --scroll-progress: 0;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 60;
+  width: 100%;
+  height: 3px;
+  transform-origin: left center;
+  transform: scaleX(var(--scroll-progress));
+  background: linear-gradient(90deg, #35f3ff, #64ffbd, #ffd166);
+  pointer-events: none;
+}
+
+.pointer-signal {
+  position: fixed;
+  left: -9px;
+  top: -9px;
+  z-index: 70;
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+  border: 1px solid rgba(53, 243, 255, 0.65);
+  border-radius: 9999px;
+  background: rgba(100, 255, 189, 0.12);
+  transition: opacity 160ms ease;
+}
+
+.pointer-signal::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  border-radius: inherit;
+  background: rgba(100, 255, 189, 0.9);
+  transform: translate(-50%, -50%);
+}
+
+@keyframes aiGridDrift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(76px, 76px, 0);
+  }
+}
+
+@keyframes aiNodeFloat {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.45;
+  }
+  50% {
+    transform: translate3d(18px, -14px, 0);
+    opacity: 0.85;
+  }
 }
 
 .code-scroll-trail {
@@ -490,7 +625,6 @@ body::before {
   background:
     linear-gradient(90deg, transparent 0 18%, rgba(53, 243, 255, 0.05) 18.2%, transparent 18.8% 43%, rgba(100, 255, 189, 0.045) 43.2%, transparent 44%),
     linear-gradient(0deg, transparent 0 30%, rgba(255, 209, 102, 0.035) 30.2%, transparent 30.8% 70%, rgba(53, 243, 255, 0.04) 70.2%, transparent 71%);
-  animation: circuitDrift 18s linear infinite;
 }
 
 .research-field::after {
@@ -520,7 +654,6 @@ body::before {
   border-radius: 9999px;
   background: rgba(100, 255, 189, 0.42);
   box-shadow: 0 0 22px rgba(100, 255, 189, 0.28);
-  animation: packetBlink 4.8s ease-in-out infinite;
 }
 
 .research-depth::before {
@@ -552,8 +685,6 @@ body::before {
   background:
     radial-gradient(circle, rgba(53, 243, 255, 0.07), transparent 64%),
     conic-gradient(from 90deg, transparent, rgba(53, 243, 255, 0.08), transparent, rgba(100, 255, 189, 0.05), transparent);
-  animation: phaseOrbit 16s ease-in-out infinite;
-  will-change: transform, opacity;
 }
 
 .research-phase::before,
@@ -569,7 +700,6 @@ body::before {
   inset: 36%;
   border-style: solid;
   border-color: rgba(255, 209, 102, 0.06);
-  animation: phaseCore 5.8s ease-in-out infinite;
 }
 
 .research-phase span {
@@ -620,13 +750,11 @@ body::before {
   inset: 13%;
   border: 1px dashed rgba(100, 255, 189, 0.08);
   border-radius: inherit;
-  animation: compassBreathe 7.5s ease-in-out infinite;
 }
 
 .research-compass::after {
   inset: 28%;
   border-color: rgba(255, 209, 102, 0.07);
-  animation-delay: -2.2s;
 }
 
 .research-compass span {
@@ -668,7 +796,7 @@ body::before {
   stroke-width: 0.24;
   stroke-dasharray: 5 8;
   stroke-linecap: round;
-  animation: edgeSignal 4.8s linear infinite, edgeGlow 7s ease-in-out infinite;
+  opacity: 0.32;
 }
 
 .research-ribbon {
@@ -677,8 +805,7 @@ body::before {
   stroke-width: 0.52;
   stroke-linecap: round;
   stroke-dasharray: 1 8;
-  filter: drop-shadow(0 0 12px rgba(53, 243, 255, 0.18));
-  animation: ribbonFlow 8s ease-in-out infinite;
+  opacity: 0.28;
 }
 
 .research-ribbon-2 {
@@ -698,7 +825,6 @@ body::before {
 }
 
 .research-node {
-  animation: nodePulse 5.2s ease-in-out infinite;
   transform-box: fill-box;
   transform-origin: center;
 }
@@ -759,7 +885,7 @@ body::before {
   letter-spacing: 0;
   white-space: nowrap;
   box-shadow: 0 0 12px rgba(53, 243, 255, 0.035);
-  animation: labelPulse 5.5s ease-in-out infinite, labelFloat 8s ease-in-out infinite;
+  opacity: 0.5;
 }
 
 .research-label-mint {
@@ -775,61 +901,6 @@ body::before {
 .research-label-rose {
   border-color: rgba(255, 95, 143, 0.24);
   color: rgba(255, 218, 228, 0.58);
-}
-
-.circuit-scan {
-  position: absolute;
-  z-index: 1;
-  left: -22%;
-  width: 32%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(100, 255, 189, 0.48), transparent);
-  box-shadow: 0 0 18px rgba(100, 255, 189, 0.25);
-  animation: scanAcross 7s ease-in-out infinite, scanBend 7s ease-in-out infinite;
-}
-
-.circuit-scan-one {
-  top: 34%;
-}
-
-.circuit-scan-two {
-  top: 63%;
-  animation-delay: 2.8s;
-  background: linear-gradient(90deg, transparent, rgba(53, 243, 255, 0.46), transparent);
-}
-
-.circuit-scan-three {
-  top: 48%;
-  height: 1px;
-  animation-delay: 4.6s;
-  animation-duration: 9s;
-  background: linear-gradient(90deg, transparent, rgba(255, 209, 102, 0.38), transparent);
-  transform: rotate(-10deg);
-}
-
-.inference-ripple {
-  position: absolute;
-  z-index: 1;
-  border: 1px solid rgba(53, 243, 255, 0.1);
-  border-radius: 9999px;
-  opacity: 0;
-  animation: rippleExpand 8s ease-out infinite;
-}
-
-.inference-ripple-one {
-  left: 39%;
-  top: 30%;
-  width: 8rem;
-  height: 8rem;
-}
-
-.inference-ripple-two {
-  left: 58%;
-  top: 64%;
-  width: 10rem;
-  height: 10rem;
-  border-color: rgba(100, 255, 189, 0.1);
-  animation-delay: -3.6s;
 }
 
 @keyframes circuitDrift {
@@ -1065,8 +1136,21 @@ body::before {
   display: flex;
   width: max-content;
   gap: clamp(0.85rem, 2vw, 1.5rem);
-  will-change: transform;
   transform: translate3d(0, 0, 0);
+}
+
+.memory-track-animated {
+  animation: memoryDrift 100s linear infinite;
+  will-change: transform;
+}
+
+.memory-track-reverse {
+  animation-direction: reverse;
+}
+
+.memory-marquee:hover .memory-track-animated,
+.memory-marquee:focus-within .memory-track-animated {
+  animation-play-state: paused;
 }
 
 .memory-card {
@@ -1366,7 +1450,80 @@ body::before {
   }
 }
 
+@media (max-width: 1024px), (pointer: coarse) {
+  .ai-simple-bg,
+  .pointer-signal {
+    display: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .lab-dashboard,
+  .glass-panel,
+  .project-card,
+  .research-card,
+  .profile-frame,
+  .memory-section,
+  .memory-card,
+  .image-lightbox-frame,
+  .image-lightbox-button,
+  .image-lightbox-nav,
+  .secondary-button,
+  .social-button,
+  .contact-toast,
+  .field-input {
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+  }
+
+  .primary-button,
+  .secondary-button,
+  .social-button,
+  .cv-button,
+  .social-chip,
+  .lab-widget,
+  .project-card,
+  .research-card,
+  .profile-frame {
+    transition-duration: 120ms !important;
+  }
+
+  .shadow-glow {
+    box-shadow: none !important;
+  }
+
+  .hero-lab::before,
+  .project-card::before,
+  .research-card::before,
+  .glass-panel::before,
+  .profile-frame::before,
+  .memory-card::before {
+    opacity: 0.18;
+  }
+
+  .neural-grid {
+    display: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .ai-simple-bg,
+  .pointer-signal {
+    display: none;
+  }
+
   .float-profile,
   .type-stack,
   .memory-track,

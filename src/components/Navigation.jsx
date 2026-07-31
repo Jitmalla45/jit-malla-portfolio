@@ -1,16 +1,10 @@
-import { motion } from "framer-motion";
 import { Atom, Download } from "lucide-react";
 import React from "react";
 import { navItems } from "../data/portfolio";
 
 export default function Navigation() {
   return (
-    <motion.header
-      initial={{ y: -80, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-      className="fixed left-0 right-0 top-0 z-40 border-b border-white/10 bg-void/45 backdrop-blur-2xl"
-    >
+    <header className="fixed left-0 right-0 top-0 z-40 border-b border-white/10 bg-void/45 backdrop-blur-2xl">
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <a href="#hero" className="group flex items-center gap-3">
           <span className="grid h-9 w-9 place-items-center rounded-lg border border-labCyan/40 bg-labCyan/10 text-labCyan shadow-glow">
@@ -39,6 +33,6 @@ export default function Navigation() {
           CV
         </a>
       </nav>
-    </motion.header>
+    </header>
   );
 }

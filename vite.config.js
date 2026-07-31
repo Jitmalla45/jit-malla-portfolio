@@ -5,20 +5,7 @@ export default defineConfig({
   plugins: [react()],
   build: {
     chunkSizeWarningLimit: 1100,
-    modulePreload: {
-      resolveDependencies(_url, deps) {
-        return deps.filter(
-          (dep) => !dep.includes("three-") && !dep.includes("LabScene-"),
-        );
-      },
-    },
     rollupOptions: {
-      output: {
-        manualChunks: {
-          animation: ["framer-motion", "gsap", "lenis"],
-          three: ["three", "@react-three/fiber", "@react-three/drei"],
-        },
-      },
       onwarn(warning, warn) {
         if (
           warning.code === "MODULE_LEVEL_DIRECTIVE" &&

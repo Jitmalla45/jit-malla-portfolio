@@ -1,41 +1,14 @@
-import { motion } from "framer-motion";
 import { ArrowLeft, Images, Sparkles } from "lucide-react";
-import React, { Suspense, lazy, useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import MemoryMarquee from "../components/MemoryMarquee.jsx";
 import { memorySections } from "../data/memories.js";
-
-const LabScene = lazy(() => import("../components/LabScene.jsx"));
-
-function MemoriesBackdrop() {
-  const [canRenderScene, setCanRenderScene] = useState(false);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(min-width: 768px) and (pointer: fine)");
-    const update = () => setCanRenderScene(mediaQuery.matches);
-
-    update();
-    mediaQuery.addEventListener("change", update);
-
-    return () => mediaQuery.removeEventListener("change", update);
-  }, []);
-
-  if (!canRenderScene) {
-    return <div className="mobile-hero-backdrop absolute inset-0" aria-hidden="true" />;
-  }
-
-  return (
-    <Suspense fallback={<div className="mobile-hero-backdrop absolute inset-0" aria-hidden="true" />}>
-      <LabScene />
-    </Suspense>
-  );
-}
 
 export default function Memories() {
   return (
     <main className="memories-page relative min-h-screen overflow-hidden bg-lab-radial pt-6">
       <div className="absolute inset-0 opacity-35">
-        <MemoriesBackdrop />
+        <div className="mobile-hero-backdrop absolute inset-0" aria-hidden="true" />
       </div>
       <div className="scanlines absolute inset-0" />
       <div className="neural-grid pointer-events-none absolute inset-0 opacity-35" />
@@ -55,12 +28,7 @@ export default function Memories() {
         </div>
 
         <section className="relative flex items-center py-20">
-          <motion.div
-            initial={{ opacity: 0, y: 34, filter: "blur(14px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ duration: 0.9, ease: "easeOut" }}
-            className="max-w-5xl"
-          >
+          <div className="max-w-5xl">
             <div className="mb-7 inline-flex items-center gap-3 rounded-full border border-labCyan/30 bg-labCyan/10 px-4 py-2 text-sm text-labCyan shadow-glow backdrop-blur-xl">
               <span className="h-2 w-2 animate-pulse rounded-full bg-labMint" />
               Personal Archive
@@ -82,7 +50,7 @@ export default function Memories() {
                 </a>
               ))}
             </div>
-          </motion.div>
+          </div>
         </section>
 
         <div className="grid gap-20">

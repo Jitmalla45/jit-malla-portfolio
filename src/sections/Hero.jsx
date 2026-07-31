@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import {
   ArrowDown,
   BrainCircuit,
@@ -14,11 +13,9 @@ import {
   Music4,
   ShieldCheck,
 } from "lucide-react";
-import React, { Suspense, lazy, useCallback, useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { githubStats, heroDashboard, profile } from "../data/portfolio";
-
-const LabScene = lazy(() => import("../components/LabScene.jsx"));
 
 const words = [
   "Neuro-symbolic architectures",
@@ -29,110 +26,39 @@ const words = [
 
 const widgetIcons = [ShieldCheck, GraduationCap, BrainCircuit, ShieldCheck];
 
-function HeroBackdrop() {
-  const [canRenderScene, setCanRenderScene] = useState(false);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(min-width: 768px) and (pointer: fine)");
-    const update = () => setCanRenderScene(mediaQuery.matches);
-
-    update();
-    mediaQuery.addEventListener("change", update);
-
-    return () => mediaQuery.removeEventListener("change", update);
-  }, []);
-
-  if (!canRenderScene) {
-    return <div className="mobile-hero-backdrop absolute inset-0" aria-hidden="true" />;
-  }
-
-  return (
-    <Suspense fallback={<div className="mobile-hero-backdrop absolute inset-0" aria-hidden="true" />}>
-      <LabScene />
-    </Suspense>
-  );
-}
-
 export default function Hero() {
-  const handlePointerMove = useCallback((event) => {
-    if (!window.matchMedia("(pointer: fine)").matches) {
-      return;
-    }
-
-    const rect = event.currentTarget.getBoundingClientRect();
-    const x = ((event.clientX - rect.left) / rect.width - 0.5).toFixed(3);
-    const y = ((event.clientY - rect.top) / rect.height - 0.5).toFixed(3);
-
-    event.currentTarget.style.setProperty("--hero-x", x);
-    event.currentTarget.style.setProperty("--hero-y", y);
-    event.currentTarget.style.setProperty("--hero-spot-x", `${event.clientX - rect.left}px`);
-    event.currentTarget.style.setProperty("--hero-spot-y", `${event.clientY - rect.top}px`);
-  }, []);
-
   return (
     <section
       id="hero"
       className="hero-lab relative min-h-screen overflow-hidden bg-lab-radial pt-16"
-      onPointerMove={handlePointerMove}
     >
       <div className="absolute inset-0 opacity-50">
-        <HeroBackdrop />
+        <div className="mobile-hero-backdrop absolute inset-0" aria-hidden="true" />
       </div>
       <div className="hero-spotlight absolute inset-0" />
       <div className="scanlines absolute inset-0" />
       <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-void to-transparent" />
       <div className="relative z-10 mx-auto grid min-h-[calc(100vh-4rem)] max-w-7xl items-center px-4 py-20 sm:px-6 lg:grid-cols-[1.05fr_.95fr] lg:px-8">
-        <motion.div
-          style={{
-            x: "calc(var(--hero-x, 0) * -18px)",
-            y: "calc(var(--hero-y, 0) * -14px)",
-          }}
-          className="order-2 lg:order-1"
-        >
-          <motion.div
-            initial={{ opacity: 0, y: 26 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.85 }}
-            className="mb-7 inline-flex items-center gap-3 rounded-full border border-labCyan/30 bg-labCyan/10 px-4 py-2 text-sm text-labCyan shadow-glow backdrop-blur-xl"
-          >
+        <div className="order-2 lg:order-1">
+          <div className="mb-7 inline-flex items-center gap-3 rounded-full border border-labCyan/30 bg-labCyan/10 px-4 py-2 text-sm text-labCyan shadow-glow backdrop-blur-xl">
             <span className="h-2 w-2 animate-pulse rounded-full bg-labMint" />
             {profile.title}
-          </motion.div>
-          <motion.h1
-            initial={{ opacity: 0, y: 42, filter: "blur(16px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ delay: 0.15, duration: 1.05, ease: "easeOut" }}
-            className="max-w-4xl text-balance text-6xl font-semibold leading-[0.95] text-white sm:text-7xl lg:text-8xl"
-          >
+          </div>
+          <h1 className="max-w-4xl text-balance text-6xl font-semibold leading-[0.95] text-white sm:text-7xl lg:text-8xl">
             {profile.name}
-          </motion.h1>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8, duration: 0.8 }}
-            className="mt-7 h-9 overflow-hidden font-mono text-lg text-labMint md:text-2xl"
-          >
+          </h1>
+          <div className="mt-7 h-9 overflow-hidden font-mono text-lg text-labMint md:text-2xl">
             <div className="type-stack">
               {words.map((word) => (
                 <div key={word}>{word}</div>
               ))}
             </div>
-          </motion.div>
-          <motion.p
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1, duration: 0.75 }}
-            className="mt-8 max-w-2xl text-lg leading-8 text-slate-300 md:text-xl"
-          >
+          </div>
+          <p className="mt-8 max-w-2xl text-lg leading-8 text-slate-300 md:text-xl">
             Exploring neuro-symbolic architectures for multimodal policy
             alignment, with logic-centered trust and transparency in AI.
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 22 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.15, duration: 0.75 }}
-            className="mt-10 flex flex-wrap gap-4"
-          >
+          </p>
+          <div className="mt-10 flex flex-wrap gap-4">
             <a className="primary-button magnetic-target" href="#projects" data-magnetic>
               <BrainCircuit size={18} />
               Explore Research
@@ -205,19 +131,9 @@ export default function Hero() {
               <Music4 size={18} />
               Playlist 🎧
             </a>
-          </motion.div>
-        </motion.div>
-        <motion.div
-          data-parallax="-8"
-          initial={{ opacity: 0, scale: 0.88 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.4, duration: 1.1 }}
-          style={{
-            x: "calc(var(--hero-x, 0) * 24px)",
-            y: "calc(var(--hero-y, 0) * 18px)",
-          }}
-          className="order-1 relative mt-4 grid gap-6 lg:order-2 lg:mt-0"
-        >
+          </div>
+        </div>
+        <div className="order-1 relative mt-4 grid gap-6 lg:order-2 lg:mt-0">
           <div className="lab-dashboard">
             <div className="mb-5 text-center">
               <span className="font-mono text-xs uppercase tracking-[0.3em] text-labCyan">
@@ -225,10 +141,8 @@ export default function Hero() {
               </span>
             </div>
             <div className="grid justify-items-center gap-5">
-              <motion.div
+              <div
                 className="profile-frame dashboard-profile magnetic-target w-full p-3"
-                whileHover={{ y: -6, scale: 1.02 }}
-                transition={{ type: "spring", stiffness: 220, damping: 18 }}
                 data-magnetic
               >
                 <img
@@ -240,22 +154,20 @@ export default function Hero() {
                   fetchPriority="high"
                   className="aspect-[4/5] w-full rounded-lg object-cover"
                 />
-              </motion.div>
+              </div>
               <div className="dashboard-highlights">
                 {heroDashboard.map((item, index) => {
                   const Icon = widgetIcons[index] || BrainCircuit;
 
                   return (
-                    <motion.div
+                    <div
                       key={item.value}
                       className="lab-widget magnetic-target"
-                      whileHover={{ y: -4, scale: 1.015 }}
-                      transition={{ type: "spring", stiffness: 260, damping: 20 }}
                       data-magnetic
                     >
                       <Icon size={17} />
                       <span>{item.value}</span>
-                    </motion.div>
+                    </div>
                   );
                 })}
               </div>
@@ -307,7 +219,7 @@ export default function Hero() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
       <a
         href="#about"

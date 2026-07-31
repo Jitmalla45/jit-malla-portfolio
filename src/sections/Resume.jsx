@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { Download, FileText, GraduationCap } from "lucide-react";
 import React from "react";
 import GlassPanel from "../components/GlassPanel.jsx";
@@ -22,18 +21,16 @@ export default function Resume() {
             <p className="mt-3 text-slate-300">
               {profile.title}
             </p>
-            <motion.a
+            <a
               className="cv-button mt-8"
               href={profile.cvPath}
               target="_blank"
               rel="noreferrer"
               download
-              whileHover={{ y: -3, scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
             >
               <Download size={18} />
               Download CV
-            </motion.a>
+            </a>
           </div>
           <div className="grid gap-4 p-8 sm:grid-cols-2">
             {[

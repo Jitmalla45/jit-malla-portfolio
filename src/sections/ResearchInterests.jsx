@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { BrainCircuit, Eye, GitBranch, Layers3, Network } from "lucide-react";
 import React from "react";
 import SectionHeader from "../components/SectionHeader.jsx";
@@ -26,11 +25,9 @@ export default function ResearchInterests() {
           const Icon = researchIcons[interest.title] || Network;
 
           return (
-            <motion.article
+            <article
               data-reveal
               key={interest.title}
-              whileHover={{ y: -14, scale: 1.03 }}
-              transition={{ type: "spring", stiffness: 240, damping: 18 }}
               className={`research-card flex flex-col ${index % 2 ? "lg:mt-14" : ""}`}
             >
               <div className="mb-8 flex items-center justify-between">
@@ -49,7 +46,7 @@ export default function ResearchInterests() {
               <p className="mt-auto pt-8 font-mono text-xs uppercase tracking-[0.2em] text-labMint">
                 {interest.metric}
               </p>
-            </motion.article>
+            </article>
           );
         })}
       </div>
