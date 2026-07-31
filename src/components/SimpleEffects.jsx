@@ -91,6 +91,12 @@ export default function SimpleEffects() {
         <span className="ai-bg-node ai-bg-node-one" />
         <span className="ai-bg-node ai-bg-node-two" />
         <span className="ai-bg-node ai-bg-node-three" />
+        <span className="ai-code-token ai-code-token-one">1011</span>
+        <span className="ai-code-token ai-code-token-two">graph.ai()</span>
+        <span className="ai-code-token ai-code-token-three">model.fit()</span>
+        <span className="ai-code-token ai-code-token-four">vision.encode</span>
+        <span className="ai-chip ai-chip-one" />
+        <span className="ai-chip ai-chip-two" />
       </div>
       <div ref={progressRef} className="scroll-progress" aria-hidden="true" />
       <div ref={pointerRef} className="pointer-signal" aria-hidden="true" />

@@ -550,6 +550,89 @@ body::before {
   transform: translate3d(var(--scroll-shift-tiny), calc(var(--scroll-shift-soft) * -1), 0);
 }
 
+.ai-code-token {
+  position: absolute;
+  color: rgba(220, 233, 255, 0.28);
+  font-family: "JetBrains Mono", monospace;
+  font-size: clamp(0.64rem, 1vw, 0.82rem);
+  letter-spacing: 0;
+  white-space: nowrap;
+  transform: translate3d(0, 0, 0);
+  animation: aiTokenFade 12s ease-in-out infinite;
+}
+
+.ai-code-token-one {
+  left: 8%;
+  top: 58%;
+  color: rgba(100, 255, 189, 0.28);
+  transform: translate3d(var(--scroll-shift-tiny), calc(var(--scroll-shift-soft) * -1), 0);
+}
+
+.ai-code-token-two {
+  right: 10%;
+  top: 26%;
+  color: rgba(53, 243, 255, 0.27);
+  animation-delay: -3s;
+  transform: translate3d(calc(var(--scroll-shift-soft) * -1), var(--scroll-shift-tiny), 0);
+}
+
+.ai-code-token-three {
+  left: 42%;
+  bottom: 14%;
+  color: rgba(255, 209, 102, 0.22);
+  animation-delay: -6s;
+  transform: translate3d(var(--scroll-shift-node), calc(var(--scroll-shift-y) * -1), 0);
+}
+
+.ai-code-token-four {
+  left: 24%;
+  top: 18%;
+  color: rgba(53, 243, 255, 0.24);
+  animation-delay: -9s;
+  transform: translate3d(calc(var(--scroll-shift-tiny) * -1), var(--scroll-shift-soft), 0);
+}
+
+.ai-chip {
+  position: absolute;
+  width: 3.1rem;
+  height: 3.1rem;
+  border: 1px solid rgba(53, 243, 255, 0.12);
+  border-radius: 8px;
+  opacity: 0.55;
+  transform: translate3d(0, 0, 0) rotate(45deg);
+}
+
+.ai-chip::before,
+.ai-chip::after {
+  content: "";
+  position: absolute;
+  inset: 45% -0.75rem auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(100, 255, 189, 0.28), transparent);
+}
+
+.ai-chip::after {
+  inset: -0.75rem auto -0.75rem 45%;
+  width: 1px;
+  height: auto;
+  background: linear-gradient(180deg, transparent, rgba(53, 243, 255, 0.26), transparent);
+}
+
+.ai-chip-one {
+  left: 66%;
+  top: 16%;
+  transform: translate3d(calc(var(--scroll-shift-tiny) * -1), var(--scroll-shift-node), 0)
+    rotate(45deg);
+}
+
+.ai-chip-two {
+  left: 16%;
+  bottom: 20%;
+  border-color: rgba(100, 255, 189, 0.12);
+  transform: translate3d(var(--scroll-shift-soft), calc(var(--scroll-shift-tiny) * -1), 0)
+    rotate(45deg);
+}
+
 .scroll-progress {
   --scroll-progress: 0;
   position: fixed;
@@ -606,6 +689,16 @@ body::before {
   }
   50% {
     opacity: 0.8;
+  }
+}
+
+@keyframes aiTokenFade {
+  0%,
+  100% {
+    opacity: 0.18;
+  }
+  50% {
+    opacity: 0.42;
   }
 }
 
