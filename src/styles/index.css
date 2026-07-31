@@ -459,21 +459,72 @@ body::before {
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
-  opacity: 0.18;
+  opacity: 0.26;
 }
 
-.ai-simple-bg::before {
+.ai-simple-bg::before,
+.ai-simple-bg::after {
   content: "";
   position: absolute;
-  inset: -8%;
+  inset: -10%;
   background:
-    linear-gradient(rgba(53, 243, 255, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(100, 255, 189, 0.04) 1px, transparent 1px),
-    radial-gradient(circle at 18% 24%, rgba(53, 243, 255, 0.18) 0 2px, transparent 3px),
-    radial-gradient(circle at 72% 36%, rgba(100, 255, 189, 0.14) 0 2px, transparent 3px);
-  background-size: 92px 92px, 92px 92px, 360px 360px, 360px 360px;
+    linear-gradient(rgba(53, 243, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(100, 255, 189, 0.03) 1px, transparent 1px);
+  background-size: 82px 82px;
   transform: translate3d(0, 0, 0);
-  animation: aiGridDrift 90s linear infinite;
+  animation: aiGridDrift 70s linear infinite;
+}
+
+.ai-simple-bg::after {
+  background:
+    radial-gradient(circle at 18% 24%, rgba(53, 243, 255, 0.14) 0 2px, transparent 3px),
+    radial-gradient(circle at 72% 36%, rgba(100, 255, 189, 0.12) 0 2px, transparent 3px),
+    radial-gradient(circle at 44% 76%, rgba(255, 209, 102, 0.1) 0 2px, transparent 3px);
+  background-size: 320px 320px;
+  animation-duration: 90s;
+  animation-direction: reverse;
+}
+
+.ai-bg-node {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border: 1px solid rgba(100, 255, 189, 0.42);
+  border-radius: 9999px;
+  background: rgba(53, 243, 255, 0.18);
+  transform: translate3d(0, 0, 0);
+  animation: aiNodeFloat 14s ease-in-out infinite;
+}
+
+.ai-bg-node-one {
+  left: 13%;
+  top: 28%;
+}
+
+.ai-bg-node-two {
+  right: 16%;
+  top: 42%;
+  animation-delay: -4s;
+}
+
+.ai-bg-node-three {
+  left: 55%;
+  bottom: 18%;
+  animation-delay: -8s;
+}
+
+.scroll-progress {
+  --scroll-progress: 0;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 60;
+  width: 100%;
+  height: 3px;
+  transform-origin: left center;
+  transform: scaleX(var(--scroll-progress));
+  background: linear-gradient(90deg, #35f3ff, #64ffbd, #ffd166);
+  pointer-events: none;
 }
 
 .pointer-signal {
@@ -507,7 +558,19 @@ body::before {
     transform: translate3d(0, 0, 0);
   }
   to {
-    transform: translate3d(92px, 92px, 0);
+    transform: translate3d(82px, 82px, 0);
+  }
+}
+
+@keyframes aiNodeFloat {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.45;
+  }
+  50% {
+    transform: translate3d(16px, -12px, 0);
+    opacity: 0.8;
   }
 }
 

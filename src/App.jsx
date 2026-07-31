@@ -42,6 +42,8 @@ function ScrollToTop() {
 }
 
 export default function App() {
+  const { pathname } = useLocation();
+
   useEffect(() => {
     const revealElements = Array.from(document.querySelectorAll("[data-reveal]"));
 
@@ -69,7 +71,7 @@ export default function App() {
     return () => {
       observer.disconnect();
     };
-  }, []);
+  }, [pathname]);
 
   return (
     <div className="min-h-screen overflow-hidden bg-void text-ink selection:bg-labCyan selection:text-void">
