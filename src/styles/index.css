@@ -463,10 +463,10 @@ body::before {
   --scroll-rotate: 0deg;
   position: fixed;
   inset: 0;
-  z-index: 0;
+  z-index: 2;
   pointer-events: none;
   overflow: hidden;
-  opacity: 0.26;
+  opacity: 0.52;
 }
 
 .ai-simple-bg::before,
@@ -475,8 +475,8 @@ body::before {
   position: absolute;
   inset: -10%;
   background:
-    linear-gradient(rgba(53, 243, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(100, 255, 189, 0.03) 1px, transparent 1px);
+    linear-gradient(rgba(53, 243, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(100, 255, 189, 0.055) 1px, transparent 1px);
   background-size: 82px 82px;
   transform: translate3d(var(--scroll-shift), var(--scroll-shift-y), 0)
     rotate(var(--scroll-rotate));
@@ -485,9 +485,9 @@ body::before {
 
 .ai-simple-bg::after {
   background:
-    radial-gradient(circle at 18% 24%, rgba(53, 243, 255, 0.14) 0 2px, transparent 3px),
-    radial-gradient(circle at 72% 36%, rgba(100, 255, 189, 0.12) 0 2px, transparent 3px),
-    radial-gradient(circle at 44% 76%, rgba(255, 209, 102, 0.1) 0 2px, transparent 3px);
+    radial-gradient(circle at 18% 24%, rgba(53, 243, 255, 0.28) 0 2px, transparent 3px),
+    radial-gradient(circle at 72% 36%, rgba(100, 255, 189, 0.22) 0 2px, transparent 3px),
+    radial-gradient(circle at 44% 76%, rgba(255, 209, 102, 0.18) 0 2px, transparent 3px);
   background-size: 320px 320px;
   transform: translate3d(calc(var(--scroll-shift-soft) * -1), var(--scroll-shift-tiny), 0);
   animation-duration: 90s;
@@ -500,9 +500,9 @@ body::before {
   top: 50%;
   width: min(68vw, 58rem);
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(53, 243, 255, 0.34), rgba(100, 255, 189, 0.28), transparent);
+  background: linear-gradient(90deg, transparent, rgba(53, 243, 255, 0.62), rgba(100, 255, 189, 0.52), transparent);
   transform-origin: center;
-  opacity: calc(0.14 + (var(--scroll-progress) * 0.18));
+  opacity: calc(0.28 + (var(--scroll-progress) * 0.24));
 }
 
 .ai-scroll-path-one {
@@ -552,7 +552,7 @@ body::before {
 
 .ai-code-token {
   position: absolute;
-  color: rgba(220, 233, 255, 0.28);
+  color: rgba(220, 233, 255, 0.48);
   font-family: "JetBrains Mono", monospace;
   font-size: clamp(0.64rem, 1vw, 0.82rem);
   letter-spacing: 0;
@@ -564,14 +564,14 @@ body::before {
 .ai-code-token-one {
   left: 8%;
   top: 58%;
-  color: rgba(100, 255, 189, 0.28);
+  color: rgba(100, 255, 189, 0.5);
   transform: translate3d(var(--scroll-shift-tiny), calc(var(--scroll-shift-soft) * -1), 0);
 }
 
 .ai-code-token-two {
   right: 10%;
   top: 26%;
-  color: rgba(53, 243, 255, 0.27);
+  color: rgba(53, 243, 255, 0.5);
   animation-delay: -3s;
   transform: translate3d(calc(var(--scroll-shift-soft) * -1), var(--scroll-shift-tiny), 0);
 }
@@ -579,7 +579,7 @@ body::before {
 .ai-code-token-three {
   left: 42%;
   bottom: 14%;
-  color: rgba(255, 209, 102, 0.22);
+  color: rgba(255, 209, 102, 0.42);
   animation-delay: -6s;
   transform: translate3d(var(--scroll-shift-node), calc(var(--scroll-shift-y) * -1), 0);
 }
@@ -587,7 +587,7 @@ body::before {
 .ai-code-token-four {
   left: 24%;
   top: 18%;
-  color: rgba(53, 243, 255, 0.24);
+  color: rgba(53, 243, 255, 0.44);
   animation-delay: -9s;
   transform: translate3d(calc(var(--scroll-shift-tiny) * -1), var(--scroll-shift-soft), 0);
 }
@@ -596,9 +596,9 @@ body::before {
   position: absolute;
   width: 3.1rem;
   height: 3.1rem;
-  border: 1px solid rgba(53, 243, 255, 0.12);
+  border: 1px solid rgba(53, 243, 255, 0.28);
   border-radius: 8px;
-  opacity: 0.55;
+  opacity: 0.78;
   transform: translate3d(0, 0, 0) rotate(45deg);
 }
 
@@ -675,10 +675,10 @@ body::before {
 
 @keyframes aiGridDrift {
   from {
-    transform: translate3d(0, 0, 0);
+    background-position: 0 0;
   }
   to {
-    transform: translate3d(82px, 82px, 0);
+    background-position: 82px 82px;
   }
 }
 
@@ -1578,8 +1578,7 @@ body::before {
   }
 }
 
-@media (max-width: 1024px), (pointer: coarse) {
-  .ai-simple-bg,
+@media (max-width: 767px), (pointer: coarse) {
   .pointer-signal {
     display: none;
   }
