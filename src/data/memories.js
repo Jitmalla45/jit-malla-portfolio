@@ -266,6 +266,9 @@ export const memories = {
     "phd12.jpg",
     "phd13.jpg",
     "phd14.jpg",
+    "phd15.jpg",
+    "phd16.jpg",
+    "phd17.jpg",
   ],
 };
 
