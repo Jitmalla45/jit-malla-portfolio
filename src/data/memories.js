@@ -298,7 +298,7 @@ export const memorySections = [
     id: "phd",
     eyebrow: "PhD Journey",
     title: "PhD Journey",
-    subtitle: "The next research chapter, shaped by AI, inquiry, and long-horizon ambition.",
+    subtitle: "বন্ধু চল, বলটা দে, রাখবো হাত তোর কাঁধে। গল্পেরা ওই ঘাসে, তোর টিমে, তোর পাশে।",
     items: createMemoryItems("phd", memories.phd),
   },
 ];
