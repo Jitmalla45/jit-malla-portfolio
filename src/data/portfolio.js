@@ -15,6 +15,9 @@ export const profile = {
 
 export const heroDashboard = [
   {
+  value: "UGC NET June 2026 Qualified",
+},
+  {
     value: "GATE 2026 Qualified",
   },
   {
@@ -150,6 +153,16 @@ export const achievements = [
     pulse: true,
     badge: "PhD Research",
   },
+  {
+  title: "Qualified UGC NET June 2026 (Computer Science & Applications)",
+
+  detail:
+    "Successfully qualified the University Grants Commission National Eligibility Test (UGC NET) June 2026 in Computer Science and Applications, demonstrating strong academic foundations and subject knowledge in computer science and related areas.",
+
+  pulse: true,
+
+  badge: "UGC NET Qualified",
+},
   {
     title: "Qualified GATE 2026 (Computer Science & Information Technology)",
     detail:
